@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/dest_home"
+        android:icon="@drawable/ic_nav_home"
+        android:title="@string/nav_home"
+        app:showAsAction="withText" />
+    <item
+        android:id="@+id/dest_favourite"
+        android:title="@string/favourites"
+        android:icon="@drawable/ic_nav_favourites"
+        app:showAsAction="withText" />
+    <item
+        android:id="@+id/dest_settings"
+        android:icon="@drawable/ic_nav_settings"
+        android:title="@string/settings" />
+</menu>
