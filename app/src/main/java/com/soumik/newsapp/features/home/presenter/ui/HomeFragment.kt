@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.soumik.newsapp.databinding.HomeFragmentBinding
 import com.soumik.newsapp.features.home.presenter.viewmodel.HomeViewModel
+import com.soumik.newsapp.utils.Messenger
 import javax.inject.Inject
 
 class HomeFragment : Fragment() {
@@ -35,16 +37,25 @@ class HomeFragment : Fragment() {
         mViewModel.apply {
             newsData.observe(viewLifecycleOwner) {
                 if (it.status=="ok") {
-
+                    //TODO set adapter from here
                 }
+            }
+
+            errorMessage.observe(viewLifecycleOwner) {
+                Messenger.showSnackBar(mBinding,it)
             }
         }
     }
 
     private fun setViews() {
+        mBinding.rvNews.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext())
+        }
     }
 
     private fun init() {
+        mViewModel.fetchTopHeadlines("us")
     }
 
 }
