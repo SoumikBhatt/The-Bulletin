@@ -11,6 +11,9 @@
         <item name="colorOnSecondary">@color/red</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Default font. -->
+        <item name="font">@font/merriweather_regular</item>
+        <item name="fontFamily">@font/merriweather_regular</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>
