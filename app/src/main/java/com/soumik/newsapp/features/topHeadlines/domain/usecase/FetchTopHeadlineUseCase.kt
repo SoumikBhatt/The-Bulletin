@@ -15,12 +15,6 @@ copyright (c) 2022 Soumik Bhattacharjee. All rights reserved
 
 class FetchTopHeadlineUseCase @Inject constructor(private val homeRepository: HomeRepository) {
 
-    companion object {
-        private const val TAG = "FetchTopHeadlineUseCase"
-    }
-
-    private val compositeDisposable = CompositeDisposable()
-
     fun fetchTopHeadlines(country: String?): Flowable<Response<NewsModel>> {
         return homeRepository.fetchTopHeadlines(country)
     }
