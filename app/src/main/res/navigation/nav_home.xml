@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/dest_home"
-        android:name="com.soumik.newsapp.features.home.presenter.ui.HomeFragment"
+        android:name="com.soumik.newsapp.features.topHeadlines.presentation.ui.HomeFragment"
         android:label="@string/nav_home"
         tools:layout="@layout/home_fragment" />
     <fragment

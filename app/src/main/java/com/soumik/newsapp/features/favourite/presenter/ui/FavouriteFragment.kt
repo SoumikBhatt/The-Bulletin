@@ -11,10 +11,6 @@ import com.soumik.newsapp.features.favourite.presenter.viewmodel.FavouriteViewMo
 
 class FavouriteFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = FavouriteFragment()
-    }
-
     private lateinit var viewModel: FavouriteViewModel
 
     override fun onCreateView(

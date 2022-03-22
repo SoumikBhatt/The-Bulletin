@@ -1,0 +1,87 @@
+package com.soumik.newsapp.features.topHeadlines.presentation.ui
+
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.soumik.newsapp.NewsApp
+import com.soumik.newsapp.databinding.HomeFragmentBinding
+import com.soumik.newsapp.features.topHeadlines.presentation.viewmodel.HomeViewModel
+import com.soumik.newsapp.core.utils.Messenger
+import javax.inject.Inject
+
+class HomeFragment : Fragment() {
+
+    companion object {
+        private const val TAG = "HomeFragment"
+    }
+
+    @Inject
+    lateinit var mViewModel: HomeViewModel
+    private lateinit var mBinding : HomeFragmentBinding
+
+    private val mTopHeadlinesAdapter : TopHeadlinesAdapter by lazy {
+        TopHeadlinesAdapter()
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        mBinding = HomeFragmentBinding.inflate(inflater,container,false)
+        return mBinding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        (requireActivity().application as NewsApp).appComponent.inject(this)
+
+        init()
+        setViews()
+        setObservers()
+    }
+
+    private fun setObservers() {
+        mViewModel.apply {
+            newsData.observe(viewLifecycleOwner) {
+                Log.d(TAG, "setObservers: NewsData: ${it?.articles?.size}")
+                if (it?.status=="ok") {
+                    if (!it.articles.isNullOrEmpty()) {
+                        mBinding.rvNews.visibility = View.VISIBLE
+                        mTopHeadlinesAdapter.submitList(it.articles)
+                    } else mTopHeadlinesAdapter.submitList(emptyList())
+                }
+            }
+
+            errorMessage.observe(viewLifecycleOwner) {
+                Messenger.showSnackBar(mBinding,it)
+            }
+
+            loading.observe(viewLifecycleOwner) {
+                if (it) {
+                    mBinding.rvNews.visibility = View.GONE
+                    mBinding.progressContent.visibility = View.VISIBLE
+                } else {
+                    mBinding.progressContent.visibility = View.GONE
+                }
+            }
+        }
+    }
+
+    private fun setViews() {
+        mBinding.rvNews.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = mTopHeadlinesAdapter
+        }
+    }
+
+    private fun init() {
+        mViewModel.fetchTopHeadlines("us")
+    }
+
+}
