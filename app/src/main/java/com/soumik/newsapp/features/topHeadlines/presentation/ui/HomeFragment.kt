@@ -64,9 +64,11 @@ class HomeFragment : Fragment() {
             loading.observe(viewLifecycleOwner) {
                 if (it) {
                     mBinding.rvNews.visibility = View.GONE
-                    mBinding.progressContent.visibility = View.VISIBLE
+                    mBinding.shimmerProgress.visibility = View.VISIBLE
+                    mBinding.shimmerProgress.startShimmer()
                 } else {
-                    mBinding.progressContent.visibility = View.GONE
+                    mBinding.shimmerProgress.visibility = View.GONE
+                    mBinding.shimmerProgress.stopShimmer()
                 }
             }
         }

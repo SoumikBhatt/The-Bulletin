@@ -2,6 +2,8 @@ package com.soumik.newsapp.features.topHeadlines.presentation.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.text.HtmlCompat
+import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
 import androidx.recyclerview.widget.DiffUtil
 import com.soumik.newsapp.core.base.BaseAdapter
 import com.soumik.newsapp.databinding.ItemNewsBinding
@@ -32,9 +34,9 @@ class TopHeadlinesAdapter : BaseAdapter<Article, ItemNewsBinding>(
     override fun bind(binding: ItemNewsBinding, item: Article) {
         binding.apply {
             Picasso.get().load(item.urlToImage).into(ivImage)
-            tvAuthor.text = item.author
-            tvDescription.text = item.description
-            tvTitle.text = item.title
+            tvAuthor.text = HtmlCompat.fromHtml(item.author?:"",FROM_HTML_MODE_LEGACY)
+            tvDescription.text = HtmlCompat.fromHtml(item.description?:"",FROM_HTML_MODE_LEGACY)
+            tvTitle.text = HtmlCompat.fromHtml(item.title?:"",FROM_HTML_MODE_LEGACY)
         }
     }
 }
