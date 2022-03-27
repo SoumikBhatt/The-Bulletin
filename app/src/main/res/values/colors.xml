@@ -11,6 +11,7 @@
     <color name="orange">#FF8086</color>
     <color name="white_200">#E5E5E5</color>
 
+    <color name="blue_300">#0088ff</color>
     <color name="shimmer_background">#B3B3B3</color>
 
 </resources>

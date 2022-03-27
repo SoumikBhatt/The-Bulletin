@@ -18,15 +18,6 @@
         android:layout_marginStart="@dimen/margin_16"
         android:layout_marginTop="@dimen/margin_16"/>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/iv_news_image"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
 
     <ScrollView
         android:layout_width="0dp"
@@ -34,7 +25,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:padding="@dimen/padding_16"
-        app:layout_constraintTop_toBottomOf="@id/iv_news_image">
+        app:layout_constraintTop_toBottomOf="@id/iv_back_arrow">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -48,6 +39,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:textSize="@dimen/text_18"
                 tools:text="EU Support Grows for Russia Oil Ban Over Ukraine War - The Wall Street Journal"
                 android:textColor="@color/black"
                 android:textStyle="bold"
@@ -56,12 +48,13 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_news_author"
-                android:layout_width="125dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_news_title"
                 tools:text="Laurence Norman, Georgi Kantchev"
                 android:gravity="start"
+                android:textColor="@color/orange"
                 android:textSize="@dimen/text_12"
                 android:letterSpacing="0.05"
                 android:layout_marginTop="3dp"
@@ -70,10 +63,10 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_news_time"
-                android:layout_width="125dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_news_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_news_author"
                 tools:text="27-03-2022"
                 android:textSize="@dimen/text_12"
                 android:gravity="end"
@@ -82,17 +75,46 @@
                 android:layout_marginEnd="@dimen/margin_8"/>
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_news_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.05"
+                android:justificationMode="inter_word"
+                tools:text="As Moscow’s assault continues with no peace deal in sight, European capitals consider a move that was once off the table"
+                android:textSize="@dimen/text_14"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_news_time"
+                android:layout_marginTop="@dimen/margin_8"/>
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_news_image"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:scaleType="fitXY"
+                android:layout_marginTop="@dimen/margin_16"
+                android:visibility="visible"
+                app:srcCompat="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_news_description"/>
+
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_news_content"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_news_author"
+                app:layout_constraintTop_toBottomOf="@id/iv_news_image"
                 android:letterSpacing="0.05"
                 tools:text="ICC Women's World Cup, India Women vs South Africa Women, Live Updates: Indian openers Shafali Verma and Smriti Mandhana got off to a solid start as they added 91 runs for the first wicket in 15 over… [+1953 chars]"
                 android:textSize="@dimen/text_14"
-                android:justificationMode="inter_word"
-                android:layout_marginTop="@dimen/margin_8"/>
+                android:textColor="@color/blue_300"
+                android:autoLink="web"
+                android:clickable="true"
+                android:layout_marginTop="@dimen/margin_16"
+                android:focusable="true" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
