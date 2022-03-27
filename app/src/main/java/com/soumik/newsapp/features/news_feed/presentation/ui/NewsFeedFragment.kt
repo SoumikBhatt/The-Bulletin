@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.soumik.newsapp.NewsApp
 import com.soumik.newsapp.R
 import com.soumik.newsapp.core.utils.Connectivity
+import com.soumik.newsapp.core.utils.Constants
 import com.soumik.newsapp.core.utils.Messenger
 import com.soumik.newsapp.databinding.NewsFeedFragmentBinding
 import com.soumik.newsapp.features.news_feed.presentation.viewmodel.HomeViewModel
@@ -110,6 +111,8 @@ class NewsFeedFragment : Fragment() {
     private fun init() {
         if (mConnectivity.hasInternetConnection()) {
             mViewModel.fetchTopHeadlines("us")
+        } else {
+            Messenger.showSnackBar(mBinding,Constants.NO_NETWORK_CONNECTION)
         }
 
         mBinding.swipeRefresh.setOnRefreshListener {
