@@ -3,6 +3,7 @@ package com.soumik.newsapp.features.news_feed.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.soumik.newsapp.core.utils.Connectivity
 import com.soumik.newsapp.core.utils.Constants
 import com.soumik.newsapp.features.news_feed.data.model.NewsModel
 import com.soumik.newsapp.features.news_feed.domain.usecase.FetchTopHeadlineUseCase
@@ -27,26 +28,27 @@ class HomeViewModel @Inject constructor(private val fetchTopHeadlineUseCase: Fet
 
     fun fetchTopHeadlines(country:String?) {
         _loading.value = true
-        compositeDisposable.add(
-            fetchTopHeadlineUseCase.fetchTopHeadlines(country).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(
-                    {
-                        _loading.value = false
-                        if (it.isSuccessful && it.body() != null && it.code()==200) {
-                            _newsData.value = it.body()
-                        } else {
-                            _errorMessage.value = Constants.ERROR_MESSAGE
+            compositeDisposable.add(
+                fetchTopHeadlineUseCase.fetchTopHeadlines(country).subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread()).subscribe(
+                        {
+                            _loading.value = false
+                            if (it.isSuccessful && it.body() != null && it.code()==200) {
+                                _newsData.value = it.body()
+                            } else {
+                                _errorMessage.value = Constants.ERROR_MESSAGE
+                            }
+                        }, {
+                            it.printStackTrace()
+                            _loading.value = false
+                            _errorMessage.value = it.localizedMessage
                         }
-                    }, {
-                        it.stackTrace
-                        _loading.value = false
-                        _errorMessage.value = it.localizedMessage
-                    }
-                )
-        )
+                    )
+            )
     }
 
     override fun onCleared() {
+        compositeDisposable.dispose()
         compositeDisposable.clear()
         super.onCleared()
     }

@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.soumik.newsapp.NewsApp
 import com.soumik.newsapp.R
+import com.soumik.newsapp.core.utils.Connectivity
 import com.soumik.newsapp.core.utils.Messenger
 import com.soumik.newsapp.databinding.NewsFeedFragmentBinding
 import com.soumik.newsapp.features.news_feed.presentation.viewmodel.HomeViewModel
@@ -23,9 +24,12 @@ class NewsFeedFragment : Fragment() {
 
     @Inject
     lateinit var mViewModel: HomeViewModel
-    private lateinit var mBinding : NewsFeedFragmentBinding
 
-    private val mTopHeadlinesAdapter : TopHeadlinesAdapter by lazy {
+    @Inject
+    lateinit var mConnectivity: Connectivity
+    private lateinit var mBinding: NewsFeedFragmentBinding
+
+    private val mTopHeadlinesAdapter: TopHeadlinesAdapter by lazy {
         TopHeadlinesAdapter()
     }
 
@@ -33,7 +37,7 @@ class NewsFeedFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mBinding = NewsFeedFragmentBinding.inflate(inflater,container,false)
+        mBinding = NewsFeedFragmentBinding.inflate(inflater, container, false)
         return mBinding.root
     }
 
@@ -51,17 +55,18 @@ class NewsFeedFragment : Fragment() {
         mViewModel.apply {
             newsData.observe(viewLifecycleOwner) {
                 Log.d(TAG, "setObservers: NewsData: ${it?.articles?.size}")
-                if (it?.status=="ok") {
+                if (it?.status == "ok") {
                     if (!it.articles.isNullOrEmpty()) {
                         mBinding.rvNews.visibility = View.VISIBLE
-                        mBinding.swipeRefresh.isRefreshing=false
+                        mBinding.swipeRefresh.isRefreshing = false
                         mTopHeadlinesAdapter.submitList(it.articles)
                     } else mTopHeadlinesAdapter.submitList(emptyList())
                 }
             }
 
             errorMessage.observe(viewLifecycleOwner) {
-                Messenger.showSnackBar(mBinding,it)
+                mBinding.swipeRefresh.isRefreshing = false
+                Messenger.showSnackBar(mBinding, it)
             }
 
             loading.observe(viewLifecycleOwner) {
@@ -86,7 +91,11 @@ class NewsFeedFragment : Fragment() {
 
         mTopHeadlinesAdapter.apply {
             onItemClicked {
-                findNavController().navigate(NewsFeedFragmentDirections.actionDestHomeToDestNewsDetails(it))
+                findNavController().navigate(
+                    NewsFeedFragmentDirections.actionDestHomeToDestNewsDetails(
+                        it
+                    )
+                )
             }
         }
 
@@ -99,9 +108,15 @@ class NewsFeedFragment : Fragment() {
     }
 
     private fun init() {
-        mViewModel.fetchTopHeadlines("us")
+        if (mConnectivity.hasInternetConnection()) {
+            mViewModel.fetchTopHeadlines("us")
+        }
 
-        mBinding.swipeRefresh.setOnRefreshListener { mViewModel.fetchTopHeadlines("us") }
+        mBinding.swipeRefresh.setOnRefreshListener {
+            if (mConnectivity.hasInternetConnection()) mViewModel.fetchTopHeadlines("us")
+            else mBinding.swipeRefresh.isRefreshing=false
+        }
+
     }
 
 }
