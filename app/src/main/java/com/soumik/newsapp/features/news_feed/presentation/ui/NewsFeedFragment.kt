@@ -5,14 +5,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.soumik.newsapp.NewsApp
+import com.soumik.newsapp.R
+import com.soumik.newsapp.core.utils.Messenger
 import com.soumik.newsapp.databinding.NewsFeedFragmentBinding
 import com.soumik.newsapp.features.news_feed.presentation.viewmodel.HomeViewModel
-import com.soumik.newsapp.core.utils.Messenger
 import javax.inject.Inject
 
 class NewsFeedFragment : Fragment() {
@@ -54,6 +54,7 @@ class NewsFeedFragment : Fragment() {
                 if (it?.status=="ok") {
                     if (!it.articles.isNullOrEmpty()) {
                         mBinding.rvNews.visibility = View.VISIBLE
+                        mBinding.swipeRefresh.isRefreshing=false
                         mTopHeadlinesAdapter.submitList(it.articles)
                     } else mTopHeadlinesAdapter.submitList(emptyList())
                 }
@@ -88,10 +89,19 @@ class NewsFeedFragment : Fragment() {
                 findNavController().navigate(NewsFeedFragmentDirections.actionDestHomeToDestNewsDetails(it))
             }
         }
+
+        mBinding.swipeRefresh.setColorSchemeResources(
+            R.color.red,
+            android.R.color.holo_green_dark,
+            android.R.color.holo_orange_dark,
+            android.R.color.holo_blue_dark
+        )
     }
 
     private fun init() {
         mViewModel.fetchTopHeadlines("us")
+
+        mBinding.swipeRefresh.setOnRefreshListener { mViewModel.fetchTopHeadlines("us") }
     }
 
 }
