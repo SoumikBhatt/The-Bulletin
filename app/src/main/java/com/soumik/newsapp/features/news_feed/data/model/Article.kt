@@ -1,8 +1,11 @@
-package com.soumik.newsapp.features.topHeadlines.data.model
+package com.soumik.newsapp.features.news_feed.data.model
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Article(
     @SerializedName("author")
     var author: String?,
@@ -20,4 +23,4 @@ data class Article(
     var url: String?,
     @SerializedName("urlToImage")
     var urlToImage: String?
-)
+):Parcelable

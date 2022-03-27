@@ -1,19 +1,21 @@
-package com.soumik.newsapp.features.topHeadlines.presentation.ui
+package com.soumik.newsapp.features.news_feed.presentation.ui
 
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.soumik.newsapp.NewsApp
-import com.soumik.newsapp.databinding.HomeFragmentBinding
-import com.soumik.newsapp.features.topHeadlines.presentation.viewmodel.HomeViewModel
+import com.soumik.newsapp.databinding.NewsFeedFragmentBinding
+import com.soumik.newsapp.features.news_feed.presentation.viewmodel.HomeViewModel
 import com.soumik.newsapp.core.utils.Messenger
 import javax.inject.Inject
 
-class HomeFragment : Fragment() {
+class NewsFeedFragment : Fragment() {
 
     companion object {
         private const val TAG = "HomeFragment"
@@ -21,7 +23,7 @@ class HomeFragment : Fragment() {
 
     @Inject
     lateinit var mViewModel: HomeViewModel
-    private lateinit var mBinding : HomeFragmentBinding
+    private lateinit var mBinding : NewsFeedFragmentBinding
 
     private val mTopHeadlinesAdapter : TopHeadlinesAdapter by lazy {
         TopHeadlinesAdapter()
@@ -31,7 +33,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        mBinding = HomeFragmentBinding.inflate(inflater,container,false)
+        mBinding = NewsFeedFragmentBinding.inflate(inflater,container,false)
         return mBinding.root
     }
 
@@ -79,6 +81,12 @@ class HomeFragment : Fragment() {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
             adapter = mTopHeadlinesAdapter
+        }
+
+        mTopHeadlinesAdapter.apply {
+            onItemClicked {
+                findNavController().navigate(NewsFeedFragmentDirections.actionDestHomeToDestNewsDetails(it))
+            }
         }
     }
 

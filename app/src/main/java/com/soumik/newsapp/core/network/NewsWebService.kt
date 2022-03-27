@@ -1,6 +1,6 @@
 package com.soumik.newsapp.core.network
 
-import com.soumik.newsapp.features.topHeadlines.data.model.NewsModel
+import com.soumik.newsapp.features.news_feed.data.model.NewsModel
 import com.soumik.newsapp.core.utils.Constants
 import io.reactivex.rxjava3.core.Flowable
 import retrofit2.Response

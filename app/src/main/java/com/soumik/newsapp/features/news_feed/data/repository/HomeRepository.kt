@@ -1,6 +1,6 @@
-package com.soumik.newsapp.features.topHeadlines.data.repository
+package com.soumik.newsapp.features.news_feed.data.repository
 
-import com.soumik.newsapp.features.topHeadlines.data.model.NewsModel
+import com.soumik.newsapp.features.news_feed.data.model.NewsModel
 import io.reactivex.rxjava3.core.Flowable
 import retrofit2.Response
 

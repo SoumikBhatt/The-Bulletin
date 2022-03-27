@@ -7,9 +7,15 @@
 
     <fragment
         android:id="@+id/dest_home"
-        android:name="com.soumik.newsapp.features.topHeadlines.presentation.ui.HomeFragment"
+        android:name="com.soumik.newsapp.features.news_feed.presentation.ui.NewsFeedFragment"
         android:label="@string/nav_home"
-        tools:layout="@layout/home_fragment" />
+        tools:layout="@layout/news_feed_fragment" >
+        <action
+            android:id="@+id/action_dest_home_to_dest_news_details"
+            app:destination="@id/dest_news_details"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
     <fragment
         android:id="@+id/dest_favourite"
         android:name="com.soumik.newsapp.features.favourite.presenter.ui.FavouriteFragment"
@@ -20,4 +26,14 @@
         android:name="com.soumik.newsapp.features.settings.presenter.ui.SettingsFragment"
         android:label="@string/settings"
         tools:layout="@layout/settings_fragment" />
+    <fragment
+        android:id="@+id/dest_news_details"
+        android:name="com.soumik.newsapp.features.details.presentation.ui.NewsDetailsFragment"
+        android:label="news_details_fragment"
+        tools:layout="@layout/news_details_fragment" >
+        <argument
+            android:name="article"
+            app:argType="com.soumik.newsapp.features.news_feed.data.model.Article"
+            app:nullable="true" />
+    </fragment>
 </navigation>

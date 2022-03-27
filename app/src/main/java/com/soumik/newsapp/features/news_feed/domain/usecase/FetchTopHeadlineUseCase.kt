@@ -1,9 +1,8 @@
-package com.soumik.newsapp.features.topHeadlines.domain.usecase
+package com.soumik.newsapp.features.news_feed.domain.usecase
 
-import com.soumik.newsapp.features.topHeadlines.data.model.NewsModel
-import com.soumik.newsapp.features.topHeadlines.data.repository.HomeRepository
+import com.soumik.newsapp.features.news_feed.data.model.NewsModel
+import com.soumik.newsapp.features.news_feed.data.repository.HomeRepository
 import io.reactivex.rxjava3.core.Flowable
-import io.reactivex.rxjava3.disposables.CompositeDisposable
 import retrofit2.Response
 import javax.inject.Inject
 

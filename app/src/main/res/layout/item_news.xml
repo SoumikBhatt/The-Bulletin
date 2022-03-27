@@ -57,6 +57,7 @@
             app:layout_constraintEnd_toStartOf="@id/iv_image"
             app:layout_constraintTop_toBottomOf="@id/tv_author"
             android:letterSpacing="0.05"
+            android:justificationMode="inter_word"
             tools:text="As Moscow’s assault continues with no peace deal in sight, European capitals consider a move that was once off the table"
             android:textSize="@dimen/text_14"
             android:layout_marginEnd="@dimen/margin_8"

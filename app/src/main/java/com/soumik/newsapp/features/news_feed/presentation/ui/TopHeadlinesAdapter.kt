@@ -1,13 +1,15 @@
-package com.soumik.newsapp.features.topHeadlines.presentation.ui
+package com.soumik.newsapp.features.news_feed.presentation.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.text.HtmlCompat
 import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
+import androidx.navigation.NavDirections
 import androidx.recyclerview.widget.DiffUtil
 import com.soumik.newsapp.core.base.BaseAdapter
 import com.soumik.newsapp.databinding.ItemNewsBinding
-import com.soumik.newsapp.features.topHeadlines.data.model.Article
+import com.soumik.newsapp.features.news_feed.data.model.Article
+import com.soumik.newsapp.features.news_feed.data.model.NewsModel
 import com.squareup.picasso.Picasso
 
 /**
@@ -27,6 +29,9 @@ class TopHeadlinesAdapter : BaseAdapter<Article, ItemNewsBinding>(
 
     }
 ) {
+
+    private var onItemClicked : ((Article)->Unit) ? =null
+
     override fun createBinding(parent: ViewGroup): ItemNewsBinding {
         return ItemNewsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     }
@@ -37,6 +42,12 @@ class TopHeadlinesAdapter : BaseAdapter<Article, ItemNewsBinding>(
             tvAuthor.text = HtmlCompat.fromHtml(item.author?:"",FROM_HTML_MODE_LEGACY)
             tvDescription.text = HtmlCompat.fromHtml(item.description?:"",FROM_HTML_MODE_LEGACY)
             tvTitle.text = HtmlCompat.fromHtml(item.title?:"",FROM_HTML_MODE_LEGACY)
+
+            root.setOnClickListener { onItemClicked?.let { it(item) }}
         }
+    }
+
+    fun onItemClicked(listener: ((Article)->Unit)) {
+        onItemClicked = listener
     }
 }

@@ -6,7 +6,7 @@
     android:padding="@dimen/padding_16"
     android:background="@color/white_200"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".features.topHeadlines.presentation.ui.HomeFragment">
+    tools:context=".features.news_feed.presentation.ui.NewsFeedFragment">
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_progress"

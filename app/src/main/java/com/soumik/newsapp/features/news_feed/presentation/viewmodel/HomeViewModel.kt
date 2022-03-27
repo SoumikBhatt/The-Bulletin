@@ -1,11 +1,12 @@
-package com.soumik.newsapp.features.topHeadlines.presentation.viewmodel
+package com.soumik.newsapp.features.news_feed.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.soumik.newsapp.core.utils.Constants
-import com.soumik.newsapp.features.topHeadlines.data.model.NewsModel
-import com.soumik.newsapp.features.topHeadlines.domain.usecase.FetchTopHeadlineUseCase
+import com.soumik.newsapp.features.news_feed.data.model.Article
+import com.soumik.newsapp.features.news_feed.data.model.NewsModel
+import com.soumik.newsapp.features.news_feed.domain.usecase.FetchTopHeadlineUseCase
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -24,7 +25,6 @@ class HomeViewModel @Inject constructor(private val fetchTopHeadlineUseCase: Fet
 
     private val _loading : MutableLiveData<Boolean> = MutableLiveData<Boolean>()
     val loading : LiveData<Boolean> get() = _loading
-
 
     fun fetchTopHeadlines(country:String?) {
         _loading.value = true
