@@ -3,7 +3,6 @@ package com.soumik.newsapp.core.di.component
 import android.content.Context
 import com.soumik.newsapp.core.di.modules.HomeRepositoryModule
 import com.soumik.newsapp.core.di.modules.NetworkModules
-import com.soumik.newsapp.features.details.presentation.ui.NewsDetailsFragment
 import com.soumik.newsapp.features.news_feed.presentation.ui.NewsFeedFragment
 import dagger.BindsInstance
 import dagger.Component

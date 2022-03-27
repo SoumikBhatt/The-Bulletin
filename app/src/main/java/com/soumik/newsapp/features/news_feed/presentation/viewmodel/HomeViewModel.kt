@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.soumik.newsapp.core.utils.Constants
-import com.soumik.newsapp.features.news_feed.data.model.Article
 import com.soumik.newsapp.features.news_feed.data.model.NewsModel
 import com.soumik.newsapp.features.news_feed.domain.usecase.FetchTopHeadlineUseCase
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers

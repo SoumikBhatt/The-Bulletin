@@ -9,17 +9,21 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.soumik.newsapp.R
 import com.soumik.newsapp.core.utils.DateUtils
 import com.soumik.newsapp.core.utils.launchUrl
 import com.soumik.newsapp.databinding.NewsDetailsFragmentBinding
+import com.soumik.newsapp.core.SharedViewModel
+import com.soumik.newsapp.core.utils.Event
 import com.squareup.picasso.Picasso
 
 class NewsDetailsFragment : Fragment() {
 
     //    @Inject
 //    lateinit var mViewModel: NewsDetailsViewModel
+    private val sharedViewModel: SharedViewModel by activityViewModels()
     private lateinit var mBinding: NewsDetailsFragmentBinding
     private val args: NewsDetailsFragmentArgs by navArgs()
 
@@ -39,8 +43,18 @@ class NewsDetailsFragment : Fragment() {
 
     }
 
+    override fun onDestroyView() {
+        sharedViewModel.apply {
+            showBottomNav.value=Event(true)
+        }
+        super.onDestroyView()
+    }
+
     @SuppressLint("SetTextI18n")
     private fun setUpViews() {
+
+        sharedViewModel.showBottomNav.value= Event(false)
+
         val article = args.article
         mBinding.apply {
             Picasso.get().load(article?.urlToImage).into(ivNewsImage)

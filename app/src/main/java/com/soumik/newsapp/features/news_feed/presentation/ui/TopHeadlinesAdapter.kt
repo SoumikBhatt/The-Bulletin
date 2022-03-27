@@ -4,12 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.text.HtmlCompat
 import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
-import androidx.navigation.NavDirections
 import androidx.recyclerview.widget.DiffUtil
 import com.soumik.newsapp.core.base.BaseAdapter
 import com.soumik.newsapp.databinding.ItemNewsBinding
 import com.soumik.newsapp.features.news_feed.data.model.Article
-import com.soumik.newsapp.features.news_feed.data.model.NewsModel
 import com.squareup.picasso.Picasso
 
 /**
