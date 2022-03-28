@@ -57,7 +57,7 @@ class NewsDetailsFragment : Fragment() {
 
         val article = args.article
         mBinding.apply {
-            Picasso.get().load(article?.urlToImage).into(ivNewsImage)
+            Picasso.get().load(article?.urlToImage).placeholder(R.mipmap.ic_launcher).into(ivNewsImage)
             tvNewsTitle.text = HtmlCompat.fromHtml(article?.title ?: "", HtmlCompat.FROM_HTML_MODE_LEGACY)
             tvNewsAuthor.text = HtmlCompat.fromHtml(article?.author ?: "", HtmlCompat.FROM_HTML_MODE_LEGACY)
             tvNewsTime.text = DateUtils.provideFormattedDate("yyyy-MM-dd'T'HH:mm:ss'Z'", article?.publishedAt) + " | "+ DateUtils.provideFormattedTime("yyyy-MM-dd'T'HH:mm:ss'Z'", article?.publishedAt)
