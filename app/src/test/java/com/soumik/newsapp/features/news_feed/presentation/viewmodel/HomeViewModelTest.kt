@@ -25,14 +25,13 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import retrofit2.Response
+import java.util.concurrent.TimeUnit
 
 @RunWith(JUnit4::class)
 class HomeViewModelTest : TestCase() {
 
     @Mock
     private lateinit var mockFetchTopHeadlineUseCase: FetchTopHeadlineUseCase
-    @Mock
-    private lateinit var mockConnectivity: Connectivity
     @Mock
     private lateinit var mockHomeRepositoryImpl: HomeRepositoryImpl
     @Mock
@@ -50,7 +49,6 @@ class HomeViewModelTest : TestCase() {
         mockHomeRepositoryImpl = HomeRepositoryImpl(mockNewsWebService)
         mockFetchTopHeadlineUseCase = FetchTopHeadlineUseCase(mockHomeRepositoryImpl)
         mHomeViewModel = HomeViewModel(mockFetchTopHeadlineUseCase)
-        RxAndroidPlugins.setInitMainThreadSchedulerHandler{ Schedulers.trampoline() }
         mNewsModel = NewsModel(listOf(Article("","","","", Source("",""),"","","")),"ok",20)
     }
 
@@ -67,7 +65,7 @@ class HomeViewModelTest : TestCase() {
     public override fun tearDown() {}
 
     @Test
-    fun `check when api response is success`() {
+    fun test_fetchTopHeadlines_success() {
         Mockito.`when`(mockFetchTopHeadlineUseCase.fetchTopHeadlines("us"))
             .thenReturn(Flowable.just(Response.success(mNewsModel)))
 
@@ -78,13 +76,14 @@ class HomeViewModelTest : TestCase() {
     }
 
     @Test
-    fun `check when api response is failed`() {
+    fun test_fetchTopHeadlines_failed() {
         Mockito.`when`(mockFetchTopHeadlineUseCase.fetchTopHeadlines("us"))
             .thenReturn(Flowable.just(Response.error(500, ResponseBody.create(null,"Error"))))
 
         mHomeViewModel.errorMessage.observeForever(mockErrorObserver)
         mHomeViewModel.fetchTopHeadlines("us")
 
-        assertTrue("Failed",mHomeViewModel.errorMessage.value == Constants.ERROR_MESSAGE)
+        assertTrue("Failed",mHomeViewModel.errorMessage.value==Constants.ERROR_MESSAGE)
+
     }
 }

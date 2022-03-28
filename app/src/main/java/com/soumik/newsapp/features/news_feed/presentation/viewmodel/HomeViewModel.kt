@@ -10,6 +10,8 @@ import com.soumik.newsapp.features.news_feed.domain.usecase.FetchTopHeadlineUseC
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.net.SocketTimeoutException
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(private val fetchTopHeadlineUseCase: FetchTopHeadlineUseCase) :
@@ -30,7 +32,8 @@ class HomeViewModel @Inject constructor(private val fetchTopHeadlineUseCase: Fet
         _loading.value = true
             compositeDisposable.add(
                 fetchTopHeadlineUseCase.fetchTopHeadlines(country).subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread()).subscribe(
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
                         {
                             _loading.value = false
                             if (it.isSuccessful && it.body() != null && it.code()==200) {
@@ -41,7 +44,7 @@ class HomeViewModel @Inject constructor(private val fetchTopHeadlineUseCase: Fet
                         }, {
                             it.printStackTrace()
                             _loading.value = false
-                            _errorMessage.value = it.localizedMessage
+                            _errorMessage.value = Constants.TIMEOUT_EXCEPTION_MESSAGE
                         }
                     )
             )

@@ -4,9 +4,11 @@ import com.soumik.newsapp.core.network.NewsWebService
 import com.soumik.newsapp.core.utils.Constants
 import dagger.Module
 import dagger.Provides
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 /**
@@ -24,11 +26,22 @@ class NetworkModules {
 
     @Singleton
     @Provides
-    fun provideRetrofitClient() : Retrofit {
+    fun provideRetrofitClient(okHttpClient: OkHttpClient) : Retrofit {
         return Retrofit.Builder()
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)
             .baseUrl(Constants.BASE_URL)
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideOkHttpClient():OkHttpClient {
+        return OkHttpClient
+            .Builder()
+            .connectTimeout(2000,TimeUnit.MILLISECONDS)
+            .readTimeout(2000,TimeUnit.MILLISECONDS)
             .build()
     }
 }
