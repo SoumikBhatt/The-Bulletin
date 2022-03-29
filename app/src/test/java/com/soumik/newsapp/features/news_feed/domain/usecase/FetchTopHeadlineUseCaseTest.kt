@@ -11,11 +11,14 @@ import io.reactivex.rxjava3.core.Flowable
 import junit.framework.TestCase
 import okhttp3.ResponseBody
 import org.junit.*
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import retrofit2.Response
 
+@RunWith(JUnit4::class)
 class FetchTopHeadlineUseCaseTest : TestCase() {
 
     @Mock
