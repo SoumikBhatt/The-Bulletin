@@ -1,9 +1,10 @@
 package com.soumik.newsapp.core.di.component
 
 import android.content.Context
+import com.soumik.newsapp.core.di.modules.ConnectivityModule
 import com.soumik.newsapp.core.di.modules.HomeRepositoryModule
 import com.soumik.newsapp.core.di.modules.NetworkModules
-import com.soumik.newsapp.features.news_feed.presentation.ui.NewsFeedFragment
+import com.soumik.newsapp.features.home.presentation.ui.NewsFeedFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -15,7 +16,7 @@ copyright (c) 2022 Soumik Bhattacharjee. All rights reserved
  **/
 
 @Singleton
-@Component(modules = [NetworkModules::class,HomeRepositoryModule::class])
+@Component(modules = [NetworkModules::class,HomeRepositoryModule::class,ConnectivityModule::class])
 interface AppComponent {
 
     @Component.Factory
@@ -24,6 +25,5 @@ interface AppComponent {
     }
 
     fun inject(newsFeedFragment: NewsFeedFragment)
-//    fun inject(newsDetailsFragment: NewsDetailsFragment)
 
 }

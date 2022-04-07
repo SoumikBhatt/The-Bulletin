@@ -10,7 +10,15 @@
         <item name="colorSecondaryVariant">@color/orange</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
+        <item name="android:windowLightStatusBar">true</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+
+    <style name="TabItemTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">@dimen/text_12</item>
+    </style>
+
 </resources>

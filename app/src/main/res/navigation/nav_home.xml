@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/dest_home"
-        android:name="com.soumik.newsapp.features.news_feed.presentation.ui.NewsFeedFragment"
+        android:name="com.soumik.newsapp.features.home.presentation.HomeFragment"
         android:label="@string/nav_home"
-        tools:layout="@layout/news_feed_fragment" >
+        tools:layout="@layout/home_fragment" >
         <action
             android:id="@+id/action_dest_home_to_dest_news_details"
             app:destination="@id/dest_news_details"
@@ -28,12 +28,12 @@
         tools:layout="@layout/settings_fragment" />
     <fragment
         android:id="@+id/dest_news_details"
-        android:name="com.soumik.newsapp.features.details.presentation.ui.NewsDetailsFragment"
+        android:name="com.soumik.newsapp.features.home.presentation.ui.NewsDetailsFragment"
         android:label="news_details_fragment"
         tools:layout="@layout/news_details_fragment" >
         <argument
             android:name="article"
-            app:argType="com.soumik.newsapp.features.news_feed.data.model.Article"
+            app:argType="com.soumik.newsapp.features.home.domain.model.Article"
             app:nullable="true" />
     </fragment>
 </navigation>

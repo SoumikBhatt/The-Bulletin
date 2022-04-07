@@ -12,9 +12,13 @@ piyal.developer@gmail.com
 copyright (c) 2022 Soumik Bhattacharjee. All rights reserved
  **/
 
-class Connectivity @Inject constructor(var context: Context) {
+interface IConnectivity {
+    fun hasInternetConnection():Boolean
+}
 
-    fun hasInternetConnection(): Boolean {
+class Connectivity @Inject constructor(private var context: Context) : IConnectivity {
+
+    override fun hasInternetConnection(): Boolean {
         val connectivityManager = context.getSystemService(
             Context.CONNECTIVITY_SERVICE
         ) as ConnectivityManager
