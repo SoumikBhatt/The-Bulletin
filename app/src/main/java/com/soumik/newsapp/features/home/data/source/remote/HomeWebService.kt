@@ -1,19 +1,18 @@
-package com.soumik.newsapp.core.network
+package com.soumik.newsapp.features.home.data.source.remote
 
-import com.soumik.newsapp.features.home.domain.model.NewsModel
 import com.soumik.newsapp.core.utils.Constants
+import com.soumik.newsapp.features.home.domain.model.NewsModel
 import io.reactivex.rxjava3.core.Flowable
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 /**
-created by Soumik on 3/22/2022
-piyal.developer@gmail.com
-copyright (c) 2022 Soumik Bhattacharjee. All rights reserved
+created by Soumik on 10/4/22.
+soumik.nybsys@gmail.com
+Copyright (c) 2022 NybSys. All rights reserved
  **/
-
-interface NewsWebService {
+interface HomeWebService {
 
     @GET("top-headlines")
     fun fetchTopHeadlines(

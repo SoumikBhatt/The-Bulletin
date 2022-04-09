@@ -1,0 +1,18 @@
+package com.soumik.newsapp.core.persistance
+
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import com.soumik.newsapp.features.favourite.data.source.local.FavouriteDao
+import com.soumik.newsapp.features.favourite.domain.entity.Favourite
+
+/**
+created by Soumik on 10/4/22.
+soumik.nybsys@gmail.com
+Copyright (c) 2022 NybSys. All rights reserved
+ **/
+
+@Database(entities = [Favourite::class], version = 1)
+abstract class AppDatabase: RoomDatabase() {
+
+    abstract fun getFavouriteDao(): FavouriteDao
+}

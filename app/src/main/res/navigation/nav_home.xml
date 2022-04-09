@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/dest_favourite"
-        android:name="com.soumik.newsapp.features.favourite.presenter.ui.FavouriteFragment"
+        android:name="com.soumik.newsapp.features.favourite.presenter.FavouriteFragment"
         android:label="@string/favourites"
         tools:layout="@layout/favourite_fragment" />
     <fragment

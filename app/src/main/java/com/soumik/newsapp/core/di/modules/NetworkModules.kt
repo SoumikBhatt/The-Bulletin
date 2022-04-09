@@ -1,16 +1,13 @@
 package com.soumik.newsapp.core.di.modules
 
-import com.soumik.newsapp.core.network.NewsWebService
 import com.soumik.newsapp.core.utils.Constants
+import com.soumik.newsapp.features.home.data.source.remote.HomeWebService
 import dagger.Module
 import dagger.Provides
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.IllegalStateException
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -25,7 +22,7 @@ class NetworkModules {
 
     @Singleton
     @Provides
-    fun provideNewsWebService(retrofit: Retrofit): NewsWebService = retrofit.create(NewsWebService::class.java)
+    fun provideHomeWebService(retrofit: Retrofit): HomeWebService = retrofit.create(HomeWebService::class.java)
 
     @Singleton
     @Provides

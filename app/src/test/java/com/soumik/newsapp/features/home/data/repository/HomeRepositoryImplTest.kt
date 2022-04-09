@@ -1,7 +1,7 @@
 package com.soumik.newsapp.features.home.data.repository
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.soumik.newsapp.core.network.NewsWebService
+import com.soumik.newsapp.features.home.data.source.remote.HomeWebService
 import com.soumik.newsapp.features.home.domain.model.Article
 import com.soumik.newsapp.features.home.domain.model.NewsModel
 import com.soumik.newsapp.features.home.domain.model.Source
@@ -21,7 +21,7 @@ import retrofit2.Response
 class HomeRepositoryImplTest : TestCase() {
 
     @Mock
-    private lateinit var mockNewsWebService: NewsWebService
+    private lateinit var mockRemoteService: HomeWebService
     private lateinit var testHomeRepositoryImpl: HomeRepositoryImpl
     private lateinit var mockNewsModel: NewsModel
 
@@ -39,14 +39,14 @@ class HomeRepositoryImplTest : TestCase() {
     @Before
     public override fun setUp() {
         MockitoAnnotations.openMocks(this)
-        testHomeRepositoryImpl = HomeRepositoryImpl(mockNewsWebService)
+        testHomeRepositoryImpl = HomeRepositoryImpl(mockRemoteService)
         mockNewsModel =
             NewsModel(listOf(Article("", "", "", "", Source("", ""), "", "", "")), "ok", 20)
     }
 
     @Test
     fun test_fetchTopHeadlines_success() {
-        Mockito.`when`(mockNewsWebService.fetchTopHeadlines("us")).thenReturn(
+        Mockito.`when`(mockRemoteService.fetchTopHeadlines("us")).thenReturn(
             Flowable.just(Response.success(mockNewsModel))
         )
 
@@ -58,7 +58,7 @@ class HomeRepositoryImplTest : TestCase() {
     fun test_fetchTopHeadlines_failed() {
         val errorResponse = Response.error<NewsModel>(500, ResponseBody.create(null, "Error"))
 
-        Mockito.`when`(mockNewsWebService.fetchTopHeadlines("us")).thenReturn(
+        Mockito.`when`(mockRemoteService.fetchTopHeadlines("us")).thenReturn(
             Flowable.just(errorResponse)
         )
 

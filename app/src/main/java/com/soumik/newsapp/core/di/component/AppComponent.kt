@@ -1,9 +1,12 @@
 package com.soumik.newsapp.core.di.component
 
 import android.content.Context
+import androidx.room.RoomDatabase
 import com.soumik.newsapp.core.di.modules.ConnectivityModule
-import com.soumik.newsapp.core.di.modules.HomeRepositoryModule
+import com.soumik.newsapp.core.di.modules.RepositoryModule
 import com.soumik.newsapp.core.di.modules.NetworkModules
+import com.soumik.newsapp.core.di.modules.StorageModule
+import com.soumik.newsapp.features.favourite.presenter.FavouriteFragment
 import com.soumik.newsapp.features.home.presentation.ui.NewsFeedFragment
 import dagger.BindsInstance
 import dagger.Component
@@ -16,7 +19,7 @@ copyright (c) 2022 Soumik Bhattacharjee. All rights reserved
  **/
 
 @Singleton
-@Component(modules = [NetworkModules::class,HomeRepositoryModule::class,ConnectivityModule::class])
+@Component(modules = [NetworkModules::class, RepositoryModule::class, ConnectivityModule::class, StorageModule::class])
 interface AppComponent {
 
     @Component.Factory
@@ -25,5 +28,6 @@ interface AppComponent {
     }
 
     fun inject(newsFeedFragment: NewsFeedFragment)
+    fun inject (favouriteFragment: FavouriteFragment)
 
 }
