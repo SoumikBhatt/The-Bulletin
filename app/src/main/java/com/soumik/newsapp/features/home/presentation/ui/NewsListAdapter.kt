@@ -30,12 +30,13 @@ class NewsListAdapter : BaseAdapter<Article, ItemNewsBinding>(
 ) {
 
     private var onItemClicked : ((Article)->Unit) ? =null
+    private var onFavouriteItemClicked : ((Article)->Unit) ? =null
 
     override fun createBinding(parent: ViewGroup): ItemNewsBinding {
         return ItemNewsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     }
 
-    override fun bind(binding: ItemNewsBinding, item: Article) {
+    override fun bind(binding: ItemNewsBinding, item: Article,position:Int) {
         binding.apply {
             Picasso.get().load(item.urlToImage).placeholder(R.mipmap.ic_launcher).into(ivImage)
             tvAuthor.text = HtmlCompat.fromHtml(item.author?:"",FROM_HTML_MODE_LEGACY)
@@ -43,10 +44,19 @@ class NewsListAdapter : BaseAdapter<Article, ItemNewsBinding>(
             tvTitle.text = HtmlCompat.fromHtml(item.title?:"",FROM_HTML_MODE_LEGACY)
 
             root.setOnClickListener { onItemClicked?.let { it(item) }}
+
+            ivFavouriteButton.setOnClickListener {
+                onFavouriteItemClicked?.let { it(item) }
+                ivFavouriteButton.setBackgroundResource(R.drawable.ic_favorite_24)
+            }
         }
     }
 
     fun onItemClicked(listener: ((Article)->Unit)) {
         onItemClicked = listener
+    }
+
+    fun onFavouriteItemClicked(listener: (Article) -> Unit) {
+        onFavouriteItemClicked = listener
     }
 }

@@ -10,5 +10,6 @@ object Constants {
     const val NO_NETWORK_CONNECTION = "Internet connection not found, please check your internet connection."
     const val INTERNAL_SERVER_ERROR = "Sorry! Server is down for now, please try again after sometime"
     const val URL_ERROR = "Sorry! Something is wrong with the url, please try again after sometime"
+    const val FAVOURITE_INSERTION_FAILED = "Sorry! Can't insert favourite data, please try again later"
 
 }

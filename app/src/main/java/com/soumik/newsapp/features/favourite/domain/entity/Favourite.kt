@@ -15,7 +15,7 @@ Copyright (c) 2022 NybSys. All rights reserved
 )
 data class Favourite(
     @PrimaryKey(autoGenerate = true)
-    var id : Int?,
+    var id : Long=0,
     @ColumnInfo(name = "author")
     var author: String?,
     @ColumnInfo(name = "content")
@@ -31,5 +31,7 @@ data class Favourite(
     @ColumnInfo(name = "urlToImage")
     var urlToImage: String?,
     @ColumnInfo(name = "category")
-    var category: String? = ""
+    var category: String? = "",
+    @ColumnInfo(name = "isFavourite")
+    var isFavourite: Int? = 0
 )

@@ -25,8 +25,8 @@ abstract class BaseAdapter<T,V:ViewBinding>(
     protected abstract fun createBinding(parent: ViewGroup) : V
 
     override fun onBindViewHolder(holder: BaseViewHolder<V>, position: Int) {
-        bind(holder.binding,getItem(position))
+        bind(holder.binding,getItem(position),position)
     }
 
-    protected abstract fun bind(binding:V,item:T)
+    protected abstract fun bind(binding:V,item:T,position: Int)
 }

@@ -1,10 +1,13 @@
 package com.soumik.newsapp.features.home.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.soumik.newsapp.core.utils.Constants
 import com.soumik.newsapp.core.utils.IConnectivity
+import com.soumik.newsapp.features.favourite.data.repository.IFavouriteRepository
+import com.soumik.newsapp.features.favourite.domain.entity.Favourite
 import com.soumik.newsapp.features.home.data.repository.HomeRepository
 import com.soumik.newsapp.features.home.domain.model.Article
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -12,10 +15,12 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
-class NewsFeedViewModel @Inject constructor(private val homeRepository : HomeRepository, private val connectivity: IConnectivity) :
+class NewsFeedViewModel @Inject constructor(private val homeRepository : HomeRepository,private val connectivity: IConnectivity,private val favouriteRepository: IFavouriteRepository) :
     ViewModel() {
 
-    companion object {}
+    companion object {
+        private const val TAG = "NewsFeedViewModel"
+    }
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -27,6 +32,9 @@ class NewsFeedViewModel @Inject constructor(private val homeRepository : HomeRep
 
     private val _loading : MutableLiveData<Boolean> = MutableLiveData<Boolean>()
     val loading : LiveData<Boolean> get() = _loading
+
+    private val _favouriteItemInserted = MutableLiveData<Boolean>()
+    val favouriteItemInserted : LiveData<Boolean> = _favouriteItemInserted
 
     fun fetchTopHeadlines(country:String?,category:String?) {
         if (connectivity.hasInternetConnection()) {
@@ -57,6 +65,17 @@ class NewsFeedViewModel @Inject constructor(private val homeRepository : HomeRep
             _errorMessage.value = Constants.NO_NETWORK_CONNECTION
         }
 
+    }
+
+    fun insertFavouriteItem(favourite: Favourite) {
+        compositeDisposable.add(
+            favouriteRepository.insertFavouriteNews(favourite).subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io()).subscribe({
+                    Log.d(TAG, "insertFavouriteItem: Success: $it")
+                },{
+                    _errorMessage.value=Constants.NO_ITEM_FOUND
+                })
+        )
     }
 
     override fun onCleared() {

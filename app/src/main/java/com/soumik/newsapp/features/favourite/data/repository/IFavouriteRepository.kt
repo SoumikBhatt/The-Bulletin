@@ -13,5 +13,5 @@ interface IFavouriteRepository {
 
     fun fetchFavouriteNews(): Flowable<List<Favourite>>
     fun insertFavouriteNews(favourite: Favourite): Single<Long>
-    fun deleteFavouriteNews(id:Int) : Single<Int>
+    fun deleteFavouriteNews(favourite: Favourite) : Single<Int>
 }

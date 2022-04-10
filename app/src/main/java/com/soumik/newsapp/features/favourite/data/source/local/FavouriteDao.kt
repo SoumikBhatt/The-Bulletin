@@ -19,6 +19,6 @@ interface FavouriteDao {
     @Query("SELECT * FROM tbl_favourite")
     fun getFavouriteNews() : Flowable<List<Favourite>>
 
-    @Query("DELETE FROM tbl_favourite where id= :id")
-    fun deleteFavouriteNews(id:Int) : Single<Int>
+    @Delete
+    fun deleteFavouriteNews(favourite: Favourite) : Single<Int>
 }

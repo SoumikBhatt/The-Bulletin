@@ -11,6 +11,7 @@ import com.soumik.newsapp.NewsApp
 import com.soumik.newsapp.R
 import com.soumik.newsapp.core.utils.Messenger
 import com.soumik.newsapp.databinding.FragmentNewsFeedBinding
+import com.soumik.newsapp.features.favourite.domain.entity.Favourite
 import com.soumik.newsapp.features.home.presentation.HomeFragmentDirections
 import com.soumik.newsapp.features.home.presentation.viewmodel.NewsFeedViewModel
 import javax.inject.Inject
@@ -100,6 +101,9 @@ class NewsFeedFragment : Fragment() {
                         it
                     )
                 )
+            }
+            onFavouriteItemClicked {
+                mViewModel.insertFavouriteItem(Favourite(author = it.author, content = it.content, description = it.description, publishedAt = it.publishedAt, title = it.title, url = it.url, urlToImage = it.urlToImage, category = category, isFavourite = 1))
             }
         }
 

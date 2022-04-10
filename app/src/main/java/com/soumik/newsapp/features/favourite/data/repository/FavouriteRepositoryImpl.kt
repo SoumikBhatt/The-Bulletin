@@ -20,7 +20,7 @@ class FavouriteRepositoryImpl @Inject constructor(private var favouriteDao: Favo
         return favouriteDao.insertFavouriteNews(favourite)
     }
 
-    override fun deleteFavouriteNews(id: Int): Single<Int> {
-        return favouriteDao.deleteFavouriteNews(id)
+    override fun deleteFavouriteNews(favourite: Favourite): Single<Int> {
+        return favouriteDao.deleteFavouriteNews(favourite)
     }
 }

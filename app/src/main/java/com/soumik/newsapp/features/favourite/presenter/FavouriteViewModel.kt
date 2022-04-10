@@ -1,5 +1,6 @@
 package com.soumik.newsapp.features.favourite.presenter
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,6 +13,10 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 class FavouriteViewModel @Inject constructor(private val favouriteRepository: IFavouriteRepository) : ViewModel() {
+
+    companion object {
+        private const val TAG = "FavouriteViewModel"
+    }
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -38,6 +43,18 @@ class FavouriteViewModel @Inject constructor(private val favouriteRepository: IF
                     it.printStackTrace()
                     _loading.value = false
                     _errorMessage.value = Constants.ERROR_MESSAGE
+                })
+        )
+    }
+
+    fun deleteFavouriteList(favourite: Favourite) {
+        compositeDisposable.add(
+            favouriteRepository.deleteFavouriteNews(favourite).subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io()).subscribe({
+                    Log.d(TAG, "deleteFavouriteList: Success: $it")
+                },{
+                    it.printStackTrace()
+                    _errorMessage.value=Constants.ERROR_MESSAGE
                 })
         )
     }
