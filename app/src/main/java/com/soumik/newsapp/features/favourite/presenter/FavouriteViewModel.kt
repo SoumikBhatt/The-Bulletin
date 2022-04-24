@@ -4,12 +4,17 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.soumik.newsapp.core.utils.Constants
+import com.soumik.newsapp.core.utils.Status
 import com.soumik.newsapp.features.favourite.data.repository.IFavouriteRepository
 import com.soumik.newsapp.features.favourite.domain.entity.Favourite
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class FavouriteViewModel @Inject constructor(private val favouriteRepository: IFavouriteRepository) : ViewModel() {
@@ -47,6 +52,20 @@ class FavouriteViewModel @Inject constructor(private val favouriteRepository: IF
         )
     }
 
+    fun fetchFavouriteListCo() {
+        viewModelScope.launch {
+            favouriteRepository.fetchFavouriteNewsCo().catch {
+                Log.e(TAG, "fetchFavouriteListCo: Exception: $this")
+            }.collect {
+                when(it.status) {
+                    Status.LOADING -> _loading.value = true
+                    Status.SUCCESS -> _favouriteList.value = it.data!!
+                    Status.FAILED -> _errorMessage.value = it.errorMessage!!
+                }
+            }
+        }
+    }
+
     fun deleteFavouriteList(favourite: Favourite) {
         compositeDisposable.add(
             favouriteRepository.deleteFavouriteNews(favourite).subscribeOn(Schedulers.io())
@@ -57,6 +76,20 @@ class FavouriteViewModel @Inject constructor(private val favouriteRepository: IF
                     _errorMessage.value=Constants.ERROR_MESSAGE
                 })
         )
+    }
+
+    fun deleteFavouriteListCo(favourite: Favourite) {
+        viewModelScope.launch {
+            favouriteRepository.deleteFavouriteNewsCo(favourite).catch {
+                Log.e(TAG, "deleteFavouriteListCo: Exception: $this")
+            }.collect {
+                when(it.status) {
+                    Status.SUCCESS -> Log.d(TAG, "deleteFavouriteListCo: Success: $it")
+                    Status.FAILED -> _errorMessage.value = Constants.ERROR_MESSAGE
+                    Status.LOADING -> _loading.value = true
+                }
+            }
+        }
     }
 
     override fun onCleared() {

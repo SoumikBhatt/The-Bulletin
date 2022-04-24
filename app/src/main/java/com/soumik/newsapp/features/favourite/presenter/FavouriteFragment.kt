@@ -41,7 +41,7 @@ class FavouriteFragment : Fragment() {
     }
 
     private fun init() {
-        mViewModel.fetchFavouriteList()
+        mViewModel.fetchFavouriteListCo()
     }
 
     private fun setViews() {

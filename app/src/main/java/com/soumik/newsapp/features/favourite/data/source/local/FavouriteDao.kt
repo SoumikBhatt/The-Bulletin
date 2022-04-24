@@ -21,4 +21,14 @@ interface FavouriteDao {
 
     @Delete
     fun deleteFavouriteNews(favourite: Favourite) : Single<Int>
+
+    // coroutine part
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertFavouriteNewsCo(favourite: Favourite): Long
+
+    @Query("SELECT * FROM tbl_favourite")
+    suspend fun getFavouriteNewsCo() : List<Favourite>?
+
+    @Delete
+    suspend fun deleteFavouriteNewsCo(favourite: Favourite) : Int
 }
