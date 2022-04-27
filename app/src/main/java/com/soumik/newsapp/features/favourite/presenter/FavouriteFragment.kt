@@ -41,7 +41,7 @@ class FavouriteFragment : Fragment() {
     }
 
     private fun init() {
-        mViewModel.fetchFavouriteListCo()
+        mViewModel.fetchFavouriteList()
     }
 
     private fun setViews() {
@@ -55,7 +55,10 @@ class FavouriteFragment : Fragment() {
         mAdapter.apply {
             onItemClicked {
                 findNavController().navigate(FavouriteFragmentDirections.actionDestFavouriteToDestNewsDetails(
-                    Article(author = it.author, content = it.content, description = it.description, publishedAt = it.publishedAt, source = null, title = it.title, urlToImage = it.urlToImage, url = it.url)
+                    Article(author = it.author, content = it.content,
+                        description = it.description, publishedAt = it.publishedAt,
+                        source = null, title = it.title,
+                        urlToImage = it.urlToImage, url = it.url)
                 ))
             }
             onFavouriteItemClicked {

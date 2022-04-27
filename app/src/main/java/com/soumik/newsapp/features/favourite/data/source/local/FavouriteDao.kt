@@ -4,6 +4,7 @@ import androidx.room.*
 import com.soumik.newsapp.features.favourite.domain.entity.Favourite
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
+import kotlinx.coroutines.flow.Flow
 
 /**
 created by Soumik on 10/4/22.
@@ -14,21 +15,11 @@ Copyright (c) 2022 NybSys. All rights reserved
 interface FavouriteDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertFavouriteNews(favourite: Favourite): Single<Long>
+    suspend fun insertFavouriteNews(favourite: Favourite): Long
 
     @Query("SELECT * FROM tbl_favourite")
-    fun getFavouriteNews() : Flowable<List<Favourite>>
+    fun getFavouriteNews() : Flow<List<Favourite>?>
 
     @Delete
-    fun deleteFavouriteNews(favourite: Favourite) : Single<Int>
-
-    // coroutine part
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertFavouriteNewsCo(favourite: Favourite): Long
-
-    @Query("SELECT * FROM tbl_favourite")
-    suspend fun getFavouriteNewsCo() : List<Favourite>?
-
-    @Delete
-    suspend fun deleteFavouriteNewsCo(favourite: Favourite) : Int
+    suspend fun deleteFavouriteNews(favourite: Favourite) : Int
 }
