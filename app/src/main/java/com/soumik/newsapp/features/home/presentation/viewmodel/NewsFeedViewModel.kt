@@ -4,8 +4,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.soumik.newsapp.core.utils.Constants
 import com.soumik.newsapp.core.utils.IConnectivity
+import com.soumik.newsapp.core.utils.Status
 import com.soumik.newsapp.features.favourite.data.repository.IFavouriteRepository
 import com.soumik.newsapp.features.favourite.domain.entity.Favourite
 import com.soumik.newsapp.features.home.data.repository.HomeRepository
@@ -13,6 +15,9 @@ import com.soumik.newsapp.features.home.domain.model.Article
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class NewsFeedViewModel @Inject constructor(private val homeRepository : HomeRepository,private val connectivity: IConnectivity,private val favouriteRepository: IFavouriteRepository) :
@@ -67,15 +72,34 @@ class NewsFeedViewModel @Inject constructor(private val homeRepository : HomeRep
 
     }
 
+    fun fetchTopHeadlinesCo(country: String?,category: String?) {
+        if (connectivity.hasInternetConnection()) {
+            viewModelScope.launch {
+                homeRepository.fetchTopHeadlinesCo(country,category).collect {
+                    when(it.status) {
+                        Status.SUCCESS -> _newsData.value = it.data!!.articles!!
+                        Status.FAILED -> _errorMessage.value = it.errorMessage!!
+                        Status.LOADING -> _loading.value = true
+                    }
+                }
+            }
+        } else {
+            _errorMessage.value = Constants.NO_NETWORK_CONNECTION
+        }
+    }
+
     fun insertFavouriteItem(favourite: Favourite) {
-        compositeDisposable.add(
-            favouriteRepository.insertFavouriteNews(favourite).subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io()).subscribe({
-                    Log.d(TAG, "insertFavouriteItem: Success: $it")
-                },{
-                    _errorMessage.value=Constants.NO_ITEM_FOUND
-                })
-        )
+        viewModelScope.launch {
+            favouriteRepository.insertFavouriteNews(favourite).catch {
+                Log.e(TAG, "insertFavouriteItem: Exception: $this")
+            }.collect {
+                when(it.status) {
+                    Status.LOADING -> _loading.value = true
+                    Status.FAILED -> _errorMessage.value = Constants.NO_ITEM_FOUND
+                    Status.SUCCESS -> Log.d(TAG, "insertFavouriteItem: Success: ${it.data}")
+                }
+            }
+        }
     }
 
     override fun onCleared() {

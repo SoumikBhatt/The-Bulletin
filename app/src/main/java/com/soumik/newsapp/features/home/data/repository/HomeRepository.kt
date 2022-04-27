@@ -1,7 +1,9 @@
 package com.soumik.newsapp.features.home.data.repository
 
+import com.soumik.newsapp.core.utils.Resource
 import com.soumik.newsapp.features.home.domain.model.NewsModel
 import io.reactivex.rxjava3.core.Flowable
+import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
 /**
@@ -12,4 +14,5 @@ copyright (c) 2022 Soumik Bhattacharjee. All rights reserved
 
 interface HomeRepository {
     fun fetchTopHeadlines(country:String?="us",category:String?) : Flowable<Response<NewsModel>>
+    fun fetchTopHeadlinesCo(country:String?="us",category:String?) : Flow<Resource<NewsModel>>
 }
