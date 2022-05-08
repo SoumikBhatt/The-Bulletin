@@ -1,6 +1,7 @@
 package com.soumik.newsapp.features.home.presentation.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +21,7 @@ class NewsFeedFragment : Fragment() {
 
     companion object {
         private const val ARG_CATEGORY = "category"
-
+        private const val TAG = "NewsFeedFragment"
         fun newInstance(category: String): NewsFeedFragment {
             val fragment = NewsFeedFragment()
             val args = Bundle()
@@ -64,6 +65,7 @@ class NewsFeedFragment : Fragment() {
     private fun setObservers() {
         mViewModel.apply {
             newsData.observe(viewLifecycleOwner) {
+                Log.d(TAG, "setObservers: Here")
                 mBinding.rvNews.visibility = View.VISIBLE
                 mBinding.swipeRefresh.isRefreshing = false
                 mNewsListAdapter.submitList(it)

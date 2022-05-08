@@ -16,16 +16,9 @@ Copyright (c) 2022 NybSys. All rights reserved
 interface HomeWebService {
 
     @GET("top-headlines")
-    fun fetchTopHeadlines(
+    suspend fun fetchTopHeadlines(
         @Query("country") country: String? = "us",
         @Query("apiKey") apiKey: String? = Constants.API_KEY,
         @Query("category") category: String?=""
-    ): Flowable<Response<NewsModel>>
-
-    @GET("top-headlines")
-    fun fetchTopHeadlinesCo(
-        @Query("country") country: String? = "us",
-        @Query("apiKey") apiKey: String? = Constants.API_KEY,
-        @Query("category") category: String?=""
-    ): Flow<Response<NewsModel>>
+    ): Response<NewsModel>
 }
