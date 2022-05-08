@@ -1,5 +1,6 @@
 package com.soumik.newsapp.core.di.modules
 
+import com.soumik.newsapp.core.network.HttpRequestInterceptor
 import com.soumik.newsapp.core.utils.Constants
 import com.soumik.newsapp.features.home.data.source.remote.HomeWebService
 import dagger.Module
@@ -40,6 +41,7 @@ class NetworkModules {
     fun provideOkHttpClient():OkHttpClient {
         return OkHttpClient
             .Builder()
+            .addInterceptor(HttpRequestInterceptor())
             .addInterceptor { chain ->
                 val request =  chain.request()
                 val response = chain.proceed(request)
