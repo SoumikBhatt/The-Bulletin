@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.soumik.newsapp.NewsApp
@@ -15,6 +16,9 @@ import com.soumik.newsapp.databinding.FragmentNewsFeedBinding
 import com.soumik.newsapp.features.favourite.domain.entity.Favourite
 import com.soumik.newsapp.features.home.presentation.HomeFragmentDirections
 import com.soumik.newsapp.features.home.presentation.viewmodel.NewsFeedViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class NewsFeedFragment : Fragment() {
@@ -40,6 +44,9 @@ class NewsFeedFragment : Fragment() {
     private lateinit var mBinding: FragmentNewsFeedBinding
     private val mNewsListAdapter: NewsListAdapter by lazy {
         NewsListAdapter()
+    }
+    private val mPagedNewsListAdapter : PagedNewsListAdapter by lazy {
+        PagedNewsListAdapter()
     }
 
     override fun onCreateView(
@@ -93,10 +100,11 @@ class NewsFeedFragment : Fragment() {
         mBinding.rvNews.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = mNewsListAdapter
+//            adapter = mNewsListAdapter
+            adapter = mPagedNewsListAdapter
         }
 
-        mNewsListAdapter.apply {
+        mPagedNewsListAdapter.apply {
             onItemClicked {
                 findNavController().navigate(
                     HomeFragmentDirections.actionDestHomeToDestNewsDetails(
@@ -119,10 +127,23 @@ class NewsFeedFragment : Fragment() {
 
     private fun init() {
 
-        mViewModel.fetchTopHeadlines("us", category,1)
+        fetchTopHeadlines()
 
         mBinding.swipeRefresh.setOnRefreshListener {
-            mViewModel.fetchTopHeadlines("us", category,1)
+            fetchTopHeadlines()
+        }
+
+    }
+
+    private fun fetchTopHeadlines() {
+//        mViewModel.fetchTopHeadlines("us", category, 1)
+        lifecycleScope.launch {
+            mViewModel.fetchTopHeadlinesPage("us",category,1).distinctUntilChanged().collectLatest {
+                Log.d(TAG, "fetchTopHeadlines: $it")
+                mBinding.rvNews.visibility = View.VISIBLE
+                mBinding.swipeRefresh.isRefreshing = false
+                mPagedNewsListAdapter.submitData(it)
+            }
         }
 
     }
