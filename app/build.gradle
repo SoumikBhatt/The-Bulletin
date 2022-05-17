@@ -97,6 +97,9 @@ dependencies {
     // swipe to refresh
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
+    // paging3
+    implementation "androidx.paging:paging-runtime-ktx:3.1.1"
+
     // room
     def room_version = "2.4.2"
     implementation "androidx.room:room-ktx:$room_version"

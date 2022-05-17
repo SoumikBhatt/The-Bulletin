@@ -13,5 +13,5 @@ copyright (c) 2022 Soumik Bhattacharjee. All rights reserved
  **/
 
 interface HomeRepository {
-    suspend fun fetchTopHeadlines(country:String?="us", category:String?) : Flow<Resource<NewsModel>>
+    suspend fun fetchTopHeadlines(country:String?="us", category:String?,page:Int?) : Flow<Resource<NewsModel>>
 }

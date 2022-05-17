@@ -119,10 +119,10 @@ class NewsFeedFragment : Fragment() {
 
     private fun init() {
 
-        mViewModel.fetchTopHeadlines("us", category)
+        mViewModel.fetchTopHeadlines("us", category,1)
 
         mBinding.swipeRefresh.setOnRefreshListener {
-            mViewModel.fetchTopHeadlines("us", category)
+            mViewModel.fetchTopHeadlines("us", category,1)
         }
 
     }

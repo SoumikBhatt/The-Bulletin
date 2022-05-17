@@ -1,6 +1,7 @@
 package com.soumik.newsapp.features.home.data.source.remote
 
 import com.soumik.newsapp.core.utils.Constants
+import com.soumik.newsapp.features.home.domain.model.Article
 import com.soumik.newsapp.features.home.domain.model.NewsModel
 import io.reactivex.rxjava3.core.Flowable
 import kotlinx.coroutines.flow.Flow
@@ -19,6 +20,17 @@ interface HomeWebService {
     suspend fun fetchTopHeadlines(
         @Query("country") country: String? = "us",
         @Query("apiKey") apiKey: String? = Constants.API_KEY,
-        @Query("category") category: String?=""
+        @Query("category") category: String?="",
+        @Query("page") page : Int? = Constants.DEFAULT_PAGE_NUM,
+        @Query("pageSize") pageSize: Int? = Constants.DEFAULT_LIST_SIZE
     ): Response<NewsModel>
+
+    @GET("top-headlines")
+    suspend fun fetchTopHeadlinesPaging(
+        @Query("country") country: String? = "us",
+        @Query("apiKey") apiKey: String? = Constants.API_KEY,
+        @Query("category") category: String?="",
+        @Query("page") page : Int? = Constants.DEFAULT_PAGE_NUM,
+        @Query("pageSize") pageSize: Int? = Constants.DEFAULT_LIST_SIZE
+    ): List<Article>
 }

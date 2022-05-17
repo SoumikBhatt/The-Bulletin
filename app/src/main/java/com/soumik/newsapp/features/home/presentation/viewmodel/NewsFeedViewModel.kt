@@ -33,10 +33,10 @@ class NewsFeedViewModel @Inject constructor(private val homeRepository : HomeRep
     private val _loading : MutableLiveData<Boolean> = MutableLiveData<Boolean>()
     val loading : LiveData<Boolean> get() = _loading
 
-    fun fetchTopHeadlines(country: String?, category: String?) {
+    fun fetchTopHeadlines(country: String?, category: String?,page:Int?) {
         if (connectivity.hasInternetConnection()) {
             viewModelScope.launch {
-                homeRepository.fetchTopHeadlines(country,category).catch {
+                homeRepository.fetchTopHeadlines(country,category,page).catch {
                     _errorMessage.value = Constants.ERROR_MESSAGE
                 }.collect {
                     when(it.status) {

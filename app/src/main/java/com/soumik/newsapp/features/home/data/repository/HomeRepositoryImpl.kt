@@ -19,11 +19,12 @@ class HomeRepositoryImpl @Inject constructor(private val remoteService: HomeWebS
 
     override suspend fun fetchTopHeadlines(
         country: String?,
-        category: String?
+        category: String?,
+        page: Int?
     ): Flow<Resource<NewsModel>> = flow {
         emit(Resource.loading())
         try {
-            val response = remoteService.fetchTopHeadlines(country = country, category = category)
+            val response = remoteService.fetchTopHeadlines(country = country, category = category, page = page)
             if (response.isSuccessful && response.code() == 200 && response.body() != null) {
                 if (response.body()!!.articles != null) {
                     if (response.body()!!.articles!!.isNotEmpty()) {
