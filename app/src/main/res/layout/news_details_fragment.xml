@@ -57,8 +57,18 @@
                 android:textColor="@color/orange"
                 android:textSize="@dimen/text_12"
                 android:letterSpacing="0.05"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="@dimen/margin_8"
                 android:layout_marginEnd="@dimen/margin_8"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_favourite_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/padding_8"
+                android:layout_marginTop="@dimen/margin_8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_news_title"
+                android:src="@drawable/ic_bookmark_border_24"/>
 
 
             <com.google.android.material.textview.MaterialTextView
@@ -85,7 +95,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_news_time"
-                android:layout_marginTop="@dimen/margin_8"/>
+                android:layout_marginTop="@dimen/margin_16"/>
 
 
             <androidx.appcompat.widget.AppCompatImageView

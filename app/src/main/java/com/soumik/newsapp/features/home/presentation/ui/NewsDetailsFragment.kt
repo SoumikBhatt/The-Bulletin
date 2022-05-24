@@ -70,6 +70,10 @@ class NewsDetailsFragment : Fragment() {
 
             tvNewsContent.setOnClickListener { requireContext().launchUrl(article?.url) }
             ivBackArrow.setOnClickListener { findNavController().navigateUp() }
+
+            ivFavouriteButton.setOnClickListener {
+                ivFavouriteButton.setImageDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.ic_bookmark_24))
+            }
         }
     }
 
