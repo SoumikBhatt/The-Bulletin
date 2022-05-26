@@ -60,15 +60,15 @@ class NewsDetailsFragment : Fragment() {
             tvNewsContent.text = HtmlCompat.fromHtml(article?.content ?: "", HtmlCompat.FROM_HTML_MODE_LEGACY)
             tvNewsDescription.text = HtmlCompat.fromHtml(article?.description?:"",HtmlCompat.FROM_HTML_MODE_LEGACY)
 
-            tvNewsContent.setTextColor(
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.blue_300
-                )
-            )
-            tvNewsContent.paintFlags = tvNewsContent.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+//            tvNewsContent.setTextColor(
+//                ContextCompat.getColor(
+//                    requireContext(),
+//                    R.color.blue_300
+//                )
+//            )
+//            tvNewsContent.paintFlags = tvNewsContent.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
-            tvNewsContent.setOnClickListener { requireContext().launchUrl(article?.url) }
+            btnFullNews.setOnClickListener { requireContext().launchUrl(article?.url) }
             ivBackArrow.setOnClickListener { findNavController().navigateUp() }
 
             ivFavouriteButton.setOnClickListener {

@@ -117,14 +117,24 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_news_image"
-                android:letterSpacing="0.05"
+                android:letterSpacing="0.07"
                 tools:text="ICC Women's World Cup, India Women vs South Africa Women, Live Updates: Indian openers Shafali Verma and Smriti Mandhana got off to a solid start as they added 91 runs for the first wicket in 15 over… [+1953 chars]"
                 android:textSize="@dimen/text_14"
-                android:textColor="@color/blue_300"
-                android:autoLink="web"
-                android:clickable="true"
+                android:textColor="@color/black"
                 android:layout_marginTop="@dimen/margin_16"
                 android:focusable="true" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_news_content"
+                android:layout_marginTop="@dimen/margin_24"
+                android:text="@string/read_full_news"
+                android:id="@+id/btn_full_news"/>
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
