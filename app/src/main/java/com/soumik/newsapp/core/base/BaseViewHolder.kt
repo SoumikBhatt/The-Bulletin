@@ -9,4 +9,7 @@ piyal.developer@gmail.com
 copyright (c) 2022 Soumik Bhattacharjee. All rights reserved
  **/
 
-class BaseViewHolder<out T: ViewBinding> constructor(val binding: T) : RecyclerView.ViewHolder(binding.root)
+open class BaseViewHolder<out T: ViewBinding> constructor(open val binding: T) : RecyclerView.ViewHolder(binding.root)
+
+class ItemViewHolder<out T: ViewBinding> constructor(override val binding: T)  : BaseViewHolder<T>(binding)
+class LoaderViewHolder<out T: ViewBinding> constructor(override val binding: T) : BaseViewHolder<T>(binding)
