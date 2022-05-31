@@ -13,5 +13,7 @@ interface IFavouriteRepository {
     suspend fun fetchFavouriteNews() : Flow<Resource<List<Favourite>?>>
     suspend fun insertFavouriteNews(favourite: Favourite) : Flow<Resource<Long>>
     suspend fun deleteFavouriteNews(favourite: Favourite) : Flow<Resource<Int>>
+    suspend fun checkIfFavourite(title:String,category:String,author: String?=null) : Flow<Resource<Int?>>
+    suspend fun deleteFavourite(title:String,category:String,author: String?=null) : Flow<Resource<Int>>
 
 }

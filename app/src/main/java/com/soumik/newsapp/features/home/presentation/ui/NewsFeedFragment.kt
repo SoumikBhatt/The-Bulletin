@@ -100,12 +100,9 @@ class NewsFeedFragment : Fragment() {
             onItemClicked {
                 findNavController().navigate(
                     HomeFragmentDirections.actionDestHomeToDestNewsDetails(
-                        it
+                        it,category
                     )
                 )
-            }
-            onFavouriteItemClicked {
-                mViewModel.insertFavouriteItem(Favourite(author = it.author, content = it.content, description = it.description, publishedAt = it.publishedAt, title = it.title, url = it.url, urlToImage = it.urlToImage, category = category, isFavourite = 1))
             }
         }
 

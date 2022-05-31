@@ -46,4 +46,30 @@ class FavouriteRepositoryImpl @Inject constructor(private var favouriteDao: Favo
     override suspend fun deleteFavouriteNews(favourite: Favourite) = flow {
         emit(Resource.success(favouriteDao.deleteFavouriteNews(favourite)))
     }
+
+    override suspend fun checkIfFavourite(
+        title: String,
+        category: String,
+        author: String?
+    ): Flow<Resource<Int?>> = flow {
+        Resource.loading<Int>()
+        favouriteDao.checkIfFavourite(title, category).catch {
+            Log.e(TAG, "checkIfFavourite: Exception: $this")
+            emit(Resource.failed(Constants.ERROR_MESSAGE))
+        }.collect {
+            if (it == 1) {
+                emit(Resource.success(it))
+            } else {
+                emit(Resource.failed(Constants.NO_ITEM_FOUND))
+            }
+        }
+    }
+
+    override suspend fun deleteFavourite(
+        title: String,
+        category: String,
+        author: String?
+    ): Flow<Resource<Int>> = flow {
+        emit(Resource.success(favouriteDao.deleteFavourite(title, category)))
+    }
 }

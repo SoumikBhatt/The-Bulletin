@@ -22,4 +22,10 @@ interface FavouriteDao {
 
     @Delete
     suspend fun deleteFavouriteNews(favourite: Favourite) : Int
+
+    @Query("SELECT isFavourite FROM tbl_favourite WHERE title = :title and category = :category")
+    fun checkIfFavourite(title:String,category:String) : Flow<Int?>
+
+    @Query("DELETE FROM tbl_favourite WHERE title = :title and category = :category and isFavourite = 1")
+    suspend fun deleteFavourite(title:String,category:String) : Int
 }

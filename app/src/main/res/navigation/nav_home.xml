@@ -41,5 +41,9 @@
             android:name="article"
             app:argType="com.soumik.newsapp.features.home.domain.model.Article"
             app:nullable="true" />
+        <argument
+            android:name="category"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>

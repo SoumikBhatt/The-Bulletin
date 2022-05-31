@@ -58,7 +58,7 @@ class FavouriteFragment : Fragment() {
                     Article(author = it.author, content = it.content,
                         description = it.description, publishedAt = it.publishedAt,
                         source = null, title = it.title,
-                        urlToImage = it.urlToImage, url = it.url)
+                        urlToImage = it.urlToImage, url = it.url),it.category
                 ))
             }
             onFavouriteItemClicked {

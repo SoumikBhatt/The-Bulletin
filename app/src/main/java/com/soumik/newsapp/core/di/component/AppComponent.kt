@@ -7,6 +7,7 @@ import com.soumik.newsapp.core.di.modules.RepositoryModule
 import com.soumik.newsapp.core.di.modules.NetworkModules
 import com.soumik.newsapp.core.di.modules.StorageModule
 import com.soumik.newsapp.features.favourite.presenter.FavouriteFragment
+import com.soumik.newsapp.features.home.presentation.ui.NewsDetailsFragment
 import com.soumik.newsapp.features.home.presentation.ui.NewsFeedFragment
 import dagger.BindsInstance
 import dagger.Component
@@ -29,5 +30,6 @@ interface AppComponent {
 
     fun inject(newsFeedFragment: NewsFeedFragment)
     fun inject (favouriteFragment: FavouriteFragment)
+    fun inject(newsDetailsFragment: NewsDetailsFragment)
 
 }
