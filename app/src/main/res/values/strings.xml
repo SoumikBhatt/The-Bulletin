@@ -14,4 +14,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="read_full_news">Read Full News</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="help_center">Help Center</string>
+    <string name="switch_app_theme_to_dark_mode">Switch app theme to dark mode</string>
+    <string name="find_answers_to_your_app_related_questions_here">Find answers to your app related questions here</string>
+    <string name="send_feedback">Send Feedback</string>
+    <string name="help_us_make_the_app_better">Help us make the app better</string>
 </resources>

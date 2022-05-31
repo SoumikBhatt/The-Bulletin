@@ -1,13 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white_200"
+    android:padding="@dimen/padding_16"
     tools:context=".features.settings.presenter.ui.SettingsFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/settings" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_title_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/settings"
+        android:textColor="#030330"
+        android:textSize="@dimen/text_24"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title_settings"
+        android:text="@string/dark_mode"
+        android:textColor="@color/black"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/text_16"
+        android:drawableTint="@color/black"
+        app:drawableEndCompat="@drawable/ic_light_mode"
+        android:layout_marginTop="@dimen/margin_32"
+        android:id="@+id/tv_menu_theme"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_menu_theme"
+        android:id="@+id/tv_menu_theme_desc"
+        android:text="@string/switch_app_theme_to_dark_mode"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_menu_theme_desc"
+        android:text="@string/help_center"
+        android:textColor="@color/black"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/text_16"
+        android:drawableTint="@color/black"
+        app:drawableEndCompat="@drawable/ic_baseline_help_outline_24"
+        android:layout_marginTop="@dimen/margin_24"
+        android:id="@+id/tv_menu_help"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_menu_help"
+        android:id="@+id/tv_menu_help_desc"
+        android:text="@string/find_answers_to_your_app_related_questions_here"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_menu_help_desc"
+        android:text="@string/send_feedback"
+        android:textColor="@color/black"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/text_16"
+        android:drawableTint="@color/black"
+        app:drawableEndCompat="@drawable/ic_feedback_32"
+        android:layout_marginTop="@dimen/margin_24"
+        android:id="@+id/tv_menu_feedback"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_menu_feedback"
+        android:id="@+id/tv_menu_feedback_desc"
+        android:text="@string/help_us_make_the_app_better"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
