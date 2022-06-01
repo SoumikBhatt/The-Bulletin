@@ -81,4 +81,46 @@
         android:id="@+id/tv_menu_feedback_desc"
         android:text="@string/help_us_make_the_app_better"/>
 
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_menu_feedback_desc"
+        android:text="@string/about_us"
+        android:theme="@style/SettingsMenuTitleTextAppearance"
+        app:drawableEndCompat="@drawable/ic_outline_info_24"
+        android:layout_marginTop="@dimen/margin_24"
+        android:id="@+id/tv_menu_about"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_menu_about"
+        android:id="@+id/tv_menu_about_desc"
+        android:text="@string/know_about_the_developers"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_menu_about_desc"
+        android:text="@string/app_version"
+        android:theme="@style/SettingsMenuTitleTextAppearance"
+        android:layout_marginTop="@dimen/margin_24"
+        android:id="@+id/tv_menu_version"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_menu_version"
+        android:id="@+id/tv_menu_version_desc"
+        tools:text="1.0.0 (1)"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,8 +17,12 @@
     <string name="dark_mode">Dark Mode</string>
     <string name="help_center">Help Center</string>
     <string name="switch_app_theme_to_dark_mode">Switch app theme to dark mode</string>
+    <string name="switch_app_theme_to_light_mode">Switch app theme to light mode</string>
     <string name="find_answers_to_your_app_related_questions_here">Find answers to your app related questions here</string>
     <string name="send_feedback">Send Feedback</string>
     <string name="help_us_make_the_app_better">Help us make the app better</string>
     <string name="light_mode">Light Mode</string>
+    <string name="about_us">About us</string>
+    <string name="know_about_the_developers">Know about the developers</string>
+    <string name="app_version">App version</string>
 </resources>

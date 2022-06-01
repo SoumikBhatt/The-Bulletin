@@ -66,5 +66,9 @@
         <item name="cardCornerRadius">@dimen/margin_16</item>
         <item name="cardBackgroundColor">#F3EFEF</item>
     </style>
+
+    <style name="BottomNavBackgroundColor" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="android:background">@color/white</item>
+    </style>
     
 </resources>

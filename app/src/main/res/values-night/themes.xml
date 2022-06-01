@@ -68,4 +68,9 @@
         <item name="cardBackgroundColor">@color/black_200</item>
     </style>
 
+
+    <style name="BottomNavBackgroundColor" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="android:background">#1F1D1D</item>
+    </style>
+
 </resources>
