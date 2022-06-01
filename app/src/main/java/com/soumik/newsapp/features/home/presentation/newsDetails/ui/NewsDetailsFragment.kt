@@ -1,4 +1,4 @@
-package com.soumik.newsapp.features.home.presentation.ui
+package com.soumik.newsapp.features.home.presentation.newsDetails.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -20,7 +20,7 @@ import com.soumik.newsapp.core.utils.Event
 import com.soumik.newsapp.core.utils.launchUrl
 import com.soumik.newsapp.databinding.NewsDetailsFragmentBinding
 import com.soumik.newsapp.features.favourite.domain.entity.Favourite
-import com.soumik.newsapp.features.home.presentation.viewmodel.NewsDetailsViewModel
+import com.soumik.newsapp.features.home.presentation.newsDetails.viewmodel.NewsDetailsViewModel
 import com.squareup.picasso.Picasso
 import javax.inject.Inject
 

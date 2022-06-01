@@ -9,6 +9,7 @@ import com.soumik.newsapp.features.home.data.repository.HomeRepository
 import com.soumik.newsapp.features.home.domain.model.Article
 import com.soumik.newsapp.features.home.domain.model.NewsModel
 import com.soumik.newsapp.features.home.domain.model.Source
+import com.soumik.newsapp.features.home.presentation.newsfeed.viewmodel.NewsFeedViewModel
 import io.reactivex.rxjava3.core.Flowable
 import junit.framework.TestCase
 import okhttp3.ResponseBody

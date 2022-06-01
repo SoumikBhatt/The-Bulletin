@@ -1,4 +1,4 @@
-package com.soumik.newsapp.features.home.presentation.ui
+package com.soumik.newsapp.features.home.presentation.newsfeed.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -12,9 +12,8 @@ import com.soumik.newsapp.NewsApp
 import com.soumik.newsapp.R
 import com.soumik.newsapp.core.utils.Messenger
 import com.soumik.newsapp.databinding.FragmentNewsFeedBinding
-import com.soumik.newsapp.features.favourite.domain.entity.Favourite
 import com.soumik.newsapp.features.home.presentation.HomeFragmentDirections
-import com.soumik.newsapp.features.home.presentation.viewmodel.NewsFeedViewModel
+import com.soumik.newsapp.features.home.presentation.newsfeed.viewmodel.NewsFeedViewModel
 import javax.inject.Inject
 
 class NewsFeedFragment : Fragment() {

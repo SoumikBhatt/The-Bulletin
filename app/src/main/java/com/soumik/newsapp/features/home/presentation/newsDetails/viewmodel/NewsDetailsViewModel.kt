@@ -1,4 +1,4 @@
-package com.soumik.newsapp.features.home.presentation.viewmodel
+package com.soumik.newsapp.features.home.presentation.newsDetails.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -9,7 +9,6 @@ import com.soumik.newsapp.core.utils.Constants
 import com.soumik.newsapp.core.utils.Status
 import com.soumik.newsapp.features.favourite.data.repository.IFavouriteRepository
 import com.soumik.newsapp.features.favourite.domain.entity.Favourite
-import com.soumik.newsapp.features.favourite.presenter.FavouriteViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

@@ -1,4 +1,4 @@
-package com.soumik.newsapp.features.home.presentation.ui
+package com.soumik.newsapp.features.home.presentation.newsfeed.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

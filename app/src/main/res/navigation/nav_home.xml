@@ -34,7 +34,7 @@
         tools:layout="@layout/settings_fragment" />
     <fragment
         android:id="@+id/dest_news_details"
-        android:name="com.soumik.newsapp.features.home.presentation.ui.NewsDetailsFragment"
+        android:name="com.soumik.newsapp.features.home.presentation.newsDetails.ui.NewsDetailsFragment"
         android:label="news_details_fragment"
         tools:layout="@layout/news_details_fragment" >
         <argument

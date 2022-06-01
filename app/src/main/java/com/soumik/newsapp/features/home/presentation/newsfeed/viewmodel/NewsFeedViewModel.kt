@@ -1,4 +1,4 @@
-package com.soumik.newsapp.features.home.presentation.viewmodel
+package com.soumik.newsapp.features.home.presentation.newsfeed.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

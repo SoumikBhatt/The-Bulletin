@@ -1,4 +1,4 @@
-package com.soumik.newsapp.features.home.presentation.ui
+package com.soumik.newsapp.features.home.presentation.newsfeed.ui
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter

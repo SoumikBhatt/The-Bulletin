@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.soumik.newsapp.R
 import com.soumik.newsapp.databinding.HomeFragmentBinding
-import com.soumik.newsapp.features.home.presentation.ui.CategoryPagerAdapter
-import com.soumik.newsapp.features.home.presentation.ui.NewsFeedFragment
+import com.soumik.newsapp.features.home.presentation.newsfeed.ui.CategoryPagerAdapter
+import com.soumik.newsapp.features.home.presentation.newsfeed.ui.NewsFeedFragment
 
 class HomeFragment : Fragment() {
 

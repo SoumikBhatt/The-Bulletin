@@ -1,14 +1,13 @@
 package com.soumik.newsapp.core.di.component
 
 import android.content.Context
-import androidx.room.RoomDatabase
 import com.soumik.newsapp.core.di.modules.ConnectivityModule
 import com.soumik.newsapp.core.di.modules.RepositoryModule
 import com.soumik.newsapp.core.di.modules.NetworkModules
 import com.soumik.newsapp.core.di.modules.StorageModule
 import com.soumik.newsapp.features.favourite.presenter.FavouriteFragment
-import com.soumik.newsapp.features.home.presentation.ui.NewsDetailsFragment
-import com.soumik.newsapp.features.home.presentation.ui.NewsFeedFragment
+import com.soumik.newsapp.features.home.presentation.newsDetails.ui.NewsDetailsFragment
+import com.soumik.newsapp.features.home.presentation.newsfeed.ui.NewsFeedFragment
 import com.soumik.newsapp.features.settings.presenter.ui.SettingsFragment
 import dagger.BindsInstance
 import dagger.Component

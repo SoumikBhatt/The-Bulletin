@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     style="@style/ParentLayoutBackgroundAppearance"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.soumik.newsapp.features.home.presentation.ui.NewsDetailsFragment">
+    tools:context=".features.home.presentation.newsDetails.ui.NewsDetailsFragment">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_back_arrow"
