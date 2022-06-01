@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/padding_16"
-    android:background="@color/white_200"
+    style="@style/ParentLayoutBackgroundAppearance"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.soumik.newsapp.features.home.presentation.HomeFragment">
 
@@ -13,9 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/tab_categories"
-        app:tabMode="scrollable"
-        android:background="@android:color/transparent"
-        app:tabIndicator="@android:color/transparent"
+        style="@style/TabLayoutAppearance"
         app:tabTextAppearance="@style/TabItemTextAppearance"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -20,4 +20,5 @@
     <string name="find_answers_to_your_app_related_questions_here">Find answers to your app related questions here</string>
     <string name="send_feedback">Send Feedback</string>
     <string name="help_us_make_the_app_better">Help us make the app better</string>
+    <string name="light_mode">Light Mode</string>
 </resources>

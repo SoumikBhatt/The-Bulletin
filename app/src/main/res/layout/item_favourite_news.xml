@@ -21,8 +21,7 @@
             app:layout_constraintEnd_toStartOf="@id/iv_favourite_button"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="EU Support Grows for Russia Oil Ban Over Ukraine War - The Wall Street Journal"
-            android:textColor="@color/black"
-            android:textStyle="bold"
+            android:textAppearance="@style/NewsTitleTextAppearance"
             android:letterSpacing="0.05"
             android:layout_marginEnd="@dimen/margin_8"
             android:layout_marginTop="@dimen/margin_8"/>
