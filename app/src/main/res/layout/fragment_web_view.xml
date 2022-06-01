@@ -11,21 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <View
-        android:id="@+id/emptyView"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ProgressBar
+    <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progressBar"
-        android:layout_width="match_parent"
-        android:layout_height="8dp"
-        android:visibility="gone"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:indeterminate="true"
-        app:layout_constraintBottom_toBottomOf="@id/emptyView"
-        app:layout_constraintTop_toTopOf="@id/emptyView" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

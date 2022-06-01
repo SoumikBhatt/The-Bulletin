@@ -20,6 +20,7 @@ import com.soumik.newsapp.core.utils.Event
 import com.soumik.newsapp.core.utils.launchUrl
 import com.soumik.newsapp.databinding.NewsDetailsFragmentBinding
 import com.soumik.newsapp.features.favourite.domain.entity.Favourite
+import com.soumik.newsapp.features.home.domain.model.Article
 import com.soumik.newsapp.features.home.presentation.newsDetails.viewmodel.NewsDetailsViewModel
 import com.squareup.picasso.Picasso
 import javax.inject.Inject
@@ -33,6 +34,7 @@ class NewsDetailsFragment : Fragment() {
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private lateinit var mBinding: NewsDetailsFragmentBinding
     private val args: NewsDetailsFragmentArgs by navArgs()
+    private var isFullNewsClicked = false
 
     @Inject
     lateinit var mViewModel : NewsDetailsViewModel
@@ -73,7 +75,7 @@ class NewsDetailsFragment : Fragment() {
 
     override fun onDestroyView() {
         sharedViewModel.apply {
-            showBottomNav.value=Event(true)
+            showBottomNav.value=Event(!isFullNewsClicked)
         }
         super.onDestroyView()
     }
@@ -82,6 +84,7 @@ class NewsDetailsFragment : Fragment() {
     private fun setUpViews() {
 
         sharedViewModel.showBottomNav.value= Event(false)
+        isFullNewsClicked=false
 
         val article = args.article
         mBinding.apply {
@@ -92,7 +95,7 @@ class NewsDetailsFragment : Fragment() {
             tvNewsContent.text = HtmlCompat.fromHtml(article?.content ?: "", HtmlCompat.FROM_HTML_MODE_LEGACY)
             tvNewsDescription.text = HtmlCompat.fromHtml(article?.description?:"",HtmlCompat.FROM_HTML_MODE_LEGACY)
 
-            btnFullNews.setOnClickListener { requireContext().launchUrl(article?.url) }
+            btnFullNews.setOnClickListener { showFullNews(article) }
             ivBackArrow.setOnClickListener { findNavController().navigateUp() }
 
             ivFavouriteButton.setOnClickListener {
@@ -106,6 +109,12 @@ class NewsDetailsFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun showFullNews(article: Article?) {
+        isFullNewsClicked = true
+//        requireContext().launchUrl(article?.url)
+        findNavController().navigate(NewsDetailsFragmentDirections.actionDestNewsDetailsToDestWebView(article?.title,article?.url))
     }
 
 }
