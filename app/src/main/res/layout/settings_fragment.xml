@@ -45,27 +45,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_menu_theme_desc"
-        android:text="@string/help_center"
+        android:text="@string/rate_us"
         android:theme="@style/SettingsMenuTitleTextAppearance"
-        app:drawableEndCompat="@drawable/ic_baseline_help_outline_24"
+        app:drawableEndCompat="@drawable/ic_outline_rate_review_24"
         android:layout_marginTop="@dimen/margin_24"
-        android:id="@+id/tv_menu_help"/>
+        android:id="@+id/tv_menu_rate"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_menu_help"
-        android:id="@+id/tv_menu_help_desc"
-        android:text="@string/find_answers_to_your_app_related_questions_here"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_menu_rate"
+        android:id="@+id/tv_menu_rate_desc"
+        android:text="@string/give_us_a_rating_on_the_play_store"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_menu_help_desc"
+        app:layout_constraintTop_toBottomOf="@id/tv_menu_rate_desc"
         android:text="@string/send_feedback"
         android:theme="@style/SettingsMenuTitleTextAppearance"
         app:drawableEndCompat="@drawable/ic_feedback_32"
@@ -87,27 +87,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_menu_feedback_desc"
-        android:text="@string/about_us"
+        android:text="@string/share"
         android:theme="@style/SettingsMenuTitleTextAppearance"
-        app:drawableEndCompat="@drawable/ic_outline_info_24"
+        app:drawableEndCompat="@drawable/ic_outline_share_24"
         android:layout_marginTop="@dimen/margin_24"
-        android:id="@+id/tv_menu_about"/>
+        android:id="@+id/tv_menu_share"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_menu_about"
-        android:id="@+id/tv_menu_about_desc"
-        android:text="@string/know_about_the_developers"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_menu_share"
+        android:id="@+id/tv_menu_share_desc"
+        android:text="@string/share_the_app_with_your_fnf"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_menu_about_desc"
+        app:layout_constraintTop_toBottomOf="@id/tv_menu_share_desc"
         android:text="@string/app_version"
         android:theme="@style/SettingsMenuTitleTextAppearance"
         android:layout_marginTop="@dimen/margin_24"

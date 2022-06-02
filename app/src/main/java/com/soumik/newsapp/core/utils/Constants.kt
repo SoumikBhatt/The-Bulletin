@@ -12,4 +12,6 @@ object Constants {
     const val URL_ERROR = "Sorry! Something is wrong with the url, please try again after sometime"
     const val FAVOURITE_INSERTION_FAILED = "Sorry! Can't insert favourite data, please try again later"
 
+    const val APP_EMAIL = "piyal.developer@gmail.com"
+
 }

@@ -9,6 +9,10 @@ import androidx.fragment.app.Fragment
 import com.soumik.newsapp.BuildConfig
 import com.soumik.newsapp.NewsApp
 import com.soumik.newsapp.R
+import com.soumik.newsapp.core.utils.Constants
+import com.soumik.newsapp.core.utils.feedback
+import com.soumik.newsapp.core.utils.rateApp
+import com.soumik.newsapp.core.utils.share
 import com.soumik.newsapp.databinding.SettingsFragmentBinding
 import com.soumik.newsapp.features.settings.presenter.viewmodel.SettingsViewModel
 import javax.inject.Inject
@@ -76,9 +80,44 @@ class SettingsFragment : Fragment() {
 
     private fun setViewListeners() {
         mBinding.apply {
-            tvMenuTheme.setOnClickListener { mViewModel.switchAppTheme(requireContext().resources) }
-            tvMenuThemeDesc.setOnClickListener { mViewModel.switchAppTheme(requireContext().resources) }
+            tvMenuTheme.setOnClickListener { switchAppTheme() }
+            tvMenuThemeDesc.setOnClickListener { switchAppTheme() }
+
+            // feedback
+            tvMenuFeedback.setOnClickListener { provideFeedback() }
+            tvMenuFeedbackDesc.setOnClickListener { provideFeedback() }
+
+            // rate
+            tvMenuRate.setOnClickListener { rateUs() }
+            tvMenuRateDesc.setOnClickListener { rateUs() }
+
+            // share
+            tvMenuShare.setOnClickListener { share() }
+            tvMenuShareDesc.setOnClickListener { share() }
         }
+    }
+
+    private fun share() {
+        requireContext().share(
+            "Checkout this great news app!",
+            "This is the news app I am using recently and it is great!",
+            "Share via"
+        )
+    }
+
+    private fun rateUs() {
+        requireContext().rateApp()
+    }
+
+    private fun switchAppTheme() {
+        mViewModel.switchAppTheme(requireContext().resources)
+    }
+
+    private fun provideFeedback() {
+        requireContext().feedback(
+            email = Constants.APP_EMAIL,
+            subject = "Feedback for ${getString(R.string.app_name)} Version: ${BuildConfig.VERSION_NAME}"
+        )
     }
 
 }

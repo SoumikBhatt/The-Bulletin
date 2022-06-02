@@ -25,4 +25,8 @@
     <string name="about_us">About us</string>
     <string name="know_about_the_developers">Know about the developers</string>
     <string name="app_version">App version</string>
+    <string name="rate_us">Rate us</string>
+    <string name="give_us_a_rating_on_the_play_store">Give us a rating on the play store</string>
+    <string name="share">Share</string>
+    <string name="share_the_app_with_your_fnf">Share the app with your FnF</string>
 </resources>
