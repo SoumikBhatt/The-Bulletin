@@ -39,6 +39,13 @@
         <item name="android:textSize">24sp</item>
     </style>
 
+    <style name="AppTitleTextAppearance" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">@color/white_200</item>
+        <item name="fontFamily">@font/gaegu_bold</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="SettingsMenuTitleTextAppearance" parent="Widget.MaterialComponents.TextView">
         <item name="android:textColor">@color/white</item>
         <item name="android:gravity">center_vertical</item>

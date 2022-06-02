@@ -4,13 +4,13 @@
     <string name="nav_home">Home</string>
     <string name="favourites">Favourites</string>
     <string name="settings">Settings</string>
-    <string name="tab_all">#all</string>
-    <string name="tab_business">#business</string>
-    <string name="tab_entertainment">#entertainment</string>
-    <string name="tab_sports">#sports</string>
-    <string name="tab_health">#health</string>
-    <string name="tab_science">#science</string>
-    <string name="tab_technology">#technology</string>
+    <string name="tab_all">all</string>
+    <string name="tab_business">business</string>
+    <string name="tab_entertainment">entertainment</string>
+    <string name="tab_sports">sports</string>
+    <string name="tab_health">health</string>
+    <string name="tab_science">science</string>
+    <string name="tab_technology">technology</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="read_full_news">Read Full News</string>

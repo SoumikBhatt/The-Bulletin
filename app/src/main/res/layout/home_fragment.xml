@@ -8,16 +8,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.soumik.newsapp.features.home.presentation.HomeFragment">
 
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:theme="@style/AppTitleTextAppearance"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/tv_app_headline"/>
 
     <com.google.android.material.tabs.TabLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:id="@+id/tab_categories"
         style="@style/TabLayoutAppearance"
+        app:tabBackground="@drawable/tab_background"
         app:tabTextAppearance="@style/TabItemTextAppearance"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginTop="@dimen/margin_16"
+        app:layout_constraintTop_toBottomOf="@id/tv_app_headline">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -63,16 +73,15 @@
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/news_view_pager"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tab_categories"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="@dimen/margin_8"
-        android:id="@+id/news_view_pager"/>
-
-
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tab_categories"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

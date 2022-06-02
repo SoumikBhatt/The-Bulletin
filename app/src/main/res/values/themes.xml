@@ -25,7 +25,7 @@
 
     <style name="TabLayoutAppearance" parent="Widget.MaterialComponents.TabLayout">
         <item name="tabTextAppearance">@style/TabItemTextAppearance</item>
-        <item name="tabSelectedTextColor">@color/black</item>
+        <item name="tabSelectedTextColor">@color/white</item>
         <item name="tabMode">scrollable</item>
         <item name="tabIndicator">@android:color/transparent</item>
         <item name="android:background">@android:color/transparent</item>
@@ -60,6 +60,13 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">14sp</item>
         <item name="android:letterSpacing">0.07</item>
+    </style>
+
+    <style name="AppTitleTextAppearance" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textColor">#0C0C0C</item>
+        <item name="fontFamily">@font/gaegu_bold</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="NewsItemCardAppearance" parent="Widget.MaterialComponents.CardView">
