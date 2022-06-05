@@ -25,7 +25,7 @@ class FavouriteRepositoryImpl @Inject constructor(private var favouriteDao: Favo
 
     override suspend fun fetchFavouriteNews(): Flow<Resource<List<Favourite>?>> = flow {
         Resource.loading<List<Favourite>>()
-        favouriteDao.getFavouriteNews().catch {
+        favouriteDao.getFavouriteNews(Constants.INITIAL_LOADING_ITEM_COUNT).catch {
             Log.e(TAG, "fetchFavouriteNews: Exception: $this")
             emit(Resource.failed(Constants.ERROR_MESSAGE))
         }.collect { favourites ->
