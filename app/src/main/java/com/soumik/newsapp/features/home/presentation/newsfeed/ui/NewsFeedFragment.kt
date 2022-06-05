@@ -5,8 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.soumik.newsapp.NewsApp
 import com.soumik.newsapp.R
@@ -14,6 +19,9 @@ import com.soumik.newsapp.core.utils.Messenger
 import com.soumik.newsapp.databinding.FragmentNewsFeedBinding
 import com.soumik.newsapp.features.home.presentation.HomeFragmentDirections
 import com.soumik.newsapp.features.home.presentation.newsfeed.viewmodel.NewsFeedViewModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class NewsFeedFragment : Fragment() {
@@ -67,7 +75,18 @@ class NewsFeedFragment : Fragment() {
                 Log.d(TAG, "setObservers: Here")
                 mBinding.rvNews.visibility = View.VISIBLE
                 mBinding.swipeRefresh.isRefreshing = false
-                mNewsListAdapter.submitList(it)
+//                mNewsListAdapter.submitList(it)
+            }
+
+            pagedNewsData.observe(viewLifecycleOwner) {
+                Log.d(TAG, "setObservers: observing pagedNewsData")
+                mBinding.rvNews.visibility = View.VISIBLE
+                mBinding.swipeRefresh.isRefreshing = false
+                viewLifecycleOwner.lifecycleScope.launch {
+                    viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        mNewsListAdapter.submitData(it)
+                    }
+                }
             }
 
             errorMessage.observe(viewLifecycleOwner) {
@@ -76,6 +95,7 @@ class NewsFeedFragment : Fragment() {
             }
 
             loading.observe(viewLifecycleOwner) {
+                Log.d(TAG, "setObservers: Loading: $it")
                 if (it) {
                     mBinding.rvNews.visibility = View.GONE
                     mBinding.shimmerProgress.visibility = View.VISIBLE
@@ -85,10 +105,23 @@ class NewsFeedFragment : Fragment() {
                     mBinding.shimmerProgress.stopShimmer()
                 }
             }
+
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                mNewsListAdapter.loadStateFlow.collect {
+                    mBinding.apply {
+                        prependProgress.isVisible = it.source.prepend is LoadState.Loading
+                        appendProgress.isVisible = it.source.append is LoadState.Loading
+                    }
+                }
+            }
         }
     }
 
     private fun setViews() {
+        Log.d(TAG, "setViews: ")
         mBinding.rvNews.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
@@ -99,7 +132,7 @@ class NewsFeedFragment : Fragment() {
             onItemClicked {
                 findNavController().navigate(
                     HomeFragmentDirections.actionDestHomeToDestNewsDetails(
-                        it,category
+                        it, category
                     )
                 )
             }
@@ -115,11 +148,24 @@ class NewsFeedFragment : Fragment() {
 
     private fun init() {
 
-        mViewModel.fetchTopHeadlines("us", category)
+//        mViewModel.fetchTopHeadlines("us", category, 1)
+        mViewModel.fetchPagedTopHeadlines("us", category, 1)
+
 
         mBinding.swipeRefresh.setOnRefreshListener {
-            mViewModel.fetchTopHeadlines("us", category)
+//            mViewModel.fetchTopHeadlines("us", category, 1)
+            mViewModel.fetchPagedTopHeadlines("us", category, 1)
         }
 
+    }
+
+    private fun fetchNews() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                mViewModel.topHeadlines("us", category, 1).collectLatest {
+                    mNewsListAdapter.submitData(it)
+                }
+            }
+        }
     }
 }

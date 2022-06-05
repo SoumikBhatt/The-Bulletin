@@ -19,6 +19,8 @@ interface HomeWebService {
     suspend fun fetchTopHeadlines(
         @Query("country") country: String? = "us",
         @Query("apiKey") apiKey: String? = Constants.API_KEY,
-        @Query("category") category: String?=""
+        @Query("category") category: String?="",
+        @Query("page") page: Int?=1,
+        @Query("pageSize") pageSize: Int?=Constants.INITIAL_LOADING_ITEM_COUNT
     ): Response<NewsModel>
 }

@@ -1,8 +1,15 @@
 package com.soumik.newsapp.features.home.data.repository
 
+import androidx.lifecycle.LiveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
 import com.soumik.newsapp.core.utils.Constants
 import com.soumik.newsapp.core.utils.Resource
 import com.soumik.newsapp.features.home.data.source.remote.HomeWebService
+import com.soumik.newsapp.features.home.data.source.remote.NewsFeedPagingSource
+import com.soumik.newsapp.features.home.domain.model.Article
 import com.soumik.newsapp.features.home.domain.model.NewsModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -19,11 +26,13 @@ class HomeRepositoryImpl @Inject constructor(private val remoteService: HomeWebS
 
     override suspend fun fetchTopHeadlines(
         country: String?,
-        category: String?
+        category: String?,
+        page: Int
     ): Flow<Resource<NewsModel>> = flow {
         emit(Resource.loading())
         try {
-            val response = remoteService.fetchTopHeadlines(country = country, category = category)
+            val response =
+                remoteService.fetchTopHeadlines(country = country, category = category, page = page)
             if (response.isSuccessful && response.code() == 200 && response.body() != null) {
                 if (response.body()!!.articles != null) {
                     if (response.body()!!.articles!!.isNotEmpty()) {
@@ -36,5 +45,23 @@ class HomeRepositoryImpl @Inject constructor(private val remoteService: HomeWebS
         } catch (e: Exception) {
             emit(Resource.failed(Constants.ERROR_MESSAGE))
         }
+    }
+
+    override fun fetchPagedTopHeadlines(
+        country: String?,
+        category: String?,
+        page: Int
+    ): Flow<PagingData<Article>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = Constants.INITIAL_LOADING_ITEM_COUNT,
+                enablePlaceholders = false
+            ), pagingSourceFactory = {
+                NewsFeedPagingSource(
+                    category = category?:"",
+                    country = country?:"us",
+                    homeWebService = remoteService
+                )
+            }).flow
     }
 }

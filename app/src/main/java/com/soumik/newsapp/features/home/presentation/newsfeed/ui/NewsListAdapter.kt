@@ -7,6 +7,7 @@ import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
 import androidx.recyclerview.widget.DiffUtil
 import com.soumik.newsapp.R
 import com.soumik.newsapp.core.base.BaseAdapter
+import com.soumik.newsapp.core.base.BasePagingAdapter
 import com.soumik.newsapp.databinding.ItemNewsBinding
 import com.soumik.newsapp.features.home.domain.model.Article
 import com.squareup.picasso.Picasso
@@ -16,7 +17,7 @@ created by Soumik on 22/3/22.
 soumik.nybsys@gmail.com
 Copyright (c) 2022 NybSys. All rights reserved
  **/
-class NewsListAdapter : BaseAdapter<Article, ItemNewsBinding>(
+class NewsListAdapter : BasePagingAdapter<Article, ItemNewsBinding>(
     diffCallback = object : DiffUtil.ItemCallback<Article>() {
         override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
             return oldItem.title == newItem.title

@@ -69,6 +69,7 @@ dependencies {
 
     // lifecycles
     def lifecycle_version = "2.4.1"
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version")
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
     // LiveData
@@ -103,6 +104,11 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-rxjava3:$room_version")
+
+    // paging
+    def paging_version = "3.1.1"
+    implementation("androidx.paging:paging-runtime-ktx:$paging_version")
+
 
 
     testImplementation 'junit:junit:4.13.2'
