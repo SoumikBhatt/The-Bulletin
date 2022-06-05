@@ -17,8 +17,8 @@ interface FavouriteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFavouriteNews(favourite: Favourite): Long
 
-    @Query("SELECT * FROM tbl_favourite")
-    fun getFavouriteNews() : Flow<List<Favourite>?>
+    @Query("SELECT * FROM tbl_favourite LIMIT :limit")
+    fun getFavouriteNews(limit: Int) : Flow<List<Favourite>?>
 
     @Delete
     suspend fun deleteFavouriteNews(favourite: Favourite) : Int
