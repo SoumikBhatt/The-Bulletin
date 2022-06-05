@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import androidx.paging.cachedIn
 import com.soumik.newsapp.core.utils.Constants
 import com.soumik.newsapp.core.utils.IConnectivity
 import com.soumik.newsapp.core.utils.Status
@@ -30,7 +29,8 @@ class NewsFeedViewModel @Inject constructor(
     private val _newsData: MutableLiveData<List<Article>> = MutableLiveData<List<Article>>()
     val newsData: LiveData<List<Article>> get() = _newsData
 
-    private val _pagedNewsData: MutableLiveData<PagingData<Article>> = MutableLiveData<PagingData<Article>>()
+    private val _pagedNewsData: MutableLiveData<PagingData<Article>> =
+        MutableLiveData<PagingData<Article>>()
     val pagedNewsData: LiveData<PagingData<Article>> get() = _pagedNewsData
 
     private val _errorMessage: MutableLiveData<String> = MutableLiveData<String>()
@@ -71,8 +71,8 @@ class NewsFeedViewModel @Inject constructor(
                     _loading.value = false
                     _errorMessage.value = Constants.ERROR_MESSAGE
                 }.collectLatest {
-                    _loading.value = false
                     _pagedNewsData.value = it
+                    _loading.value = false
                 }
             }
         } else {
@@ -80,6 +80,4 @@ class NewsFeedViewModel @Inject constructor(
             _errorMessage.value = Constants.NO_NETWORK_CONNECTION
         }
     }
-
-    fun topHeadlines(country: String?,category: String?,page: Int) = homeRepository.fetchPagedTopHeadlines(country, category, page)
 }

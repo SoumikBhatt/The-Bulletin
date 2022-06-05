@@ -80,8 +80,10 @@ class NewsFeedFragment : Fragment() {
 
             pagedNewsData.observe(viewLifecycleOwner) {
                 Log.d(TAG, "setObservers: observing pagedNewsData")
-                mBinding.rvNews.visibility = View.VISIBLE
-                mBinding.swipeRefresh.isRefreshing = false
+                mBinding.apply {
+                    rvNews.visibility = View.VISIBLE
+                    swipeRefresh.isRefreshing = false
+                }
                 viewLifecycleOwner.lifecycleScope.launch {
                     viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                         mNewsListAdapter.submitData(it)
@@ -123,7 +125,6 @@ class NewsFeedFragment : Fragment() {
     private fun setViews() {
         Log.d(TAG, "setViews: ")
         mBinding.rvNews.apply {
-            setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
             adapter = mNewsListAdapter
         }
@@ -147,25 +148,15 @@ class NewsFeedFragment : Fragment() {
     }
 
     private fun init() {
-
-//        mViewModel.fetchTopHeadlines("us", category, 1)
-        mViewModel.fetchPagedTopHeadlines("us", category, 1)
-
+        fetchNews()
 
         mBinding.swipeRefresh.setOnRefreshListener {
-//            mViewModel.fetchTopHeadlines("us", category, 1)
-            mViewModel.fetchPagedTopHeadlines("us", category, 1)
+            fetchNews()
         }
 
     }
 
     private fun fetchNews() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                mViewModel.topHeadlines("us", category, 1).collectLatest {
-                    mNewsListAdapter.submitData(it)
-                }
-            }
-        }
+        mViewModel.fetchPagedTopHeadlines("us", category, 1)
     }
 }
