@@ -1,14 +1,12 @@
 package com.soumik.newsapp.features.home.data.repository
 
-import androidx.lifecycle.LiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.liveData
 import com.soumik.newsapp.core.utils.Constants
 import com.soumik.newsapp.core.utils.Resource
 import com.soumik.newsapp.features.home.data.source.remote.HomeWebService
-import com.soumik.newsapp.features.home.data.source.remote.NewsFeedPagingSource
+import com.soumik.newsapp.features.home.data.source.paging.NewsFeedPagingSource
 import com.soumik.newsapp.features.home.domain.model.Article
 import com.soumik.newsapp.features.home.domain.model.NewsModel
 import kotlinx.coroutines.flow.Flow

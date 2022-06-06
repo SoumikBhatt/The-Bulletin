@@ -20,7 +20,6 @@ import com.soumik.newsapp.databinding.FragmentNewsFeedBinding
 import com.soumik.newsapp.features.home.presentation.HomeFragmentDirections
 import com.soumik.newsapp.features.home.presentation.newsfeed.viewmodel.NewsFeedViewModel
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -67,6 +66,7 @@ class NewsFeedFragment : Fragment() {
         init()
         setViews()
         setObservers()
+        observeLoadingState()
     }
 
     private fun setObservers() {
@@ -109,13 +109,24 @@ class NewsFeedFragment : Fragment() {
             }
 
         }
+    }
 
+    /*
+     * observing loading state of the adapter
+     */
+    private fun observeLoadingState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 mNewsListAdapter.loadStateFlow.collect {
                     mBinding.apply {
                         prependProgress.isVisible = it.source.prepend is LoadState.Loading
                         appendProgress.isVisible = it.source.append is LoadState.Loading
+                        if (it.source.refresh is LoadState.Loading && mNewsListAdapter.itemCount == 0) {
+                            mViewModel.showLoader(true)
+                        } else {
+                            mViewModel.showLoader(false)
+                            mBinding.rvNews.visibility = View.VISIBLE
+                        }
                     }
                 }
             }

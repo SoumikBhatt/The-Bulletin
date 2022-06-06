@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.soumik.newsapp.core.utils.Constants
 import com.soumik.newsapp.core.utils.IConnectivity
 import com.soumik.newsapp.core.utils.Status
@@ -70,14 +71,18 @@ class NewsFeedViewModel @Inject constructor(
                 homeRepository.fetchPagedTopHeadlines(country, category, page).catch {
                     _loading.value = false
                     _errorMessage.value = Constants.ERROR_MESSAGE
-                }.collectLatest {
-                    _pagedNewsData.value = it
+                }.cachedIn(viewModelScope).collectLatest {
                     _loading.value = false
+                    _pagedNewsData.value = it
                 }
             }
         } else {
             _loading.value = false
             _errorMessage.value = Constants.NO_NETWORK_CONNECTION
         }
+    }
+
+    fun showLoader(show:Boolean) {
+        _loading.value = show
     }
 }
