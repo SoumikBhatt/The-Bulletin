@@ -17,6 +17,5 @@ copyright (c) 2022 Soumik Bhattacharjee. All rights reserved
  **/
 
 interface HomeRepository {
-    suspend fun fetchTopHeadlines(country:String?="us", category:String?,page:Int) : Flow<Resource<NewsModel>>
-    fun fetchPagedTopHeadlines(country:String?="us", category:String?,page:Int) : Flow<PagingData<Article>>
+    fun fetchTopHeadlines(country:String?="us", category:String?, page:Int) : Flow<PagingData<Article>>
 }

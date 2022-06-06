@@ -71,13 +71,6 @@ class NewsFeedFragment : Fragment() {
 
     private fun setObservers() {
         mViewModel.apply {
-            newsData.observe(viewLifecycleOwner) {
-                Log.d(TAG, "setObservers: Here")
-                mBinding.rvNews.visibility = View.VISIBLE
-                mBinding.swipeRefresh.isRefreshing = false
-//                mNewsListAdapter.submitList(it)
-            }
-
             pagedNewsData.observe(viewLifecycleOwner) {
                 Log.d(TAG, "setObservers: observing pagedNewsData")
                 mBinding.apply {
@@ -168,6 +161,6 @@ class NewsFeedFragment : Fragment() {
     }
 
     private fun fetchNews() {
-        mViewModel.fetchPagedTopHeadlines("us", category, 1)
+        mViewModel.fetchTopHeadlines("us", category, 1)
     }
 }
