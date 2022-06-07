@@ -29,4 +29,5 @@
     <string name="give_us_a_rating_on_the_play_store">Give us a rating on the play store</string>
     <string name="share">Share</string>
     <string name="share_the_app_with_your_fnf">Share the app with your FnF</string>
+    <string name="error_message">Something went wrong! Please try again after sometime</string>
 </resources>

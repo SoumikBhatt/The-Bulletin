@@ -7,18 +7,19 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.nybsys.sentok.core.customViews.FullScreenViewType
 import com.soumik.newsapp.NewsApp
-import com.soumik.newsapp.core.utils.handleShimmer
-import com.soumik.newsapp.core.utils.handleVisibility
+import com.soumik.newsapp.core.utils.*
 import com.soumik.newsapp.databinding.FavouriteFragmentBinding
 import com.soumik.newsapp.features.home.domain.model.Article
 import javax.inject.Inject
 
 class FavouriteFragment : Fragment() {
 
-    @Inject lateinit var mViewModel: FavouriteViewModel
+    @Inject
+    lateinit var mViewModel: FavouriteViewModel
     private lateinit var mBinding: FavouriteFragmentBinding
-    private val mAdapter : FavouriteListAdapter by lazy {
+    private val mAdapter: FavouriteListAdapter by lazy {
         FavouriteListAdapter()
     }
 
@@ -46,7 +47,7 @@ class FavouriteFragment : Fragment() {
 
     private fun setViews() {
         mBinding.apply {
-            rvFavNews.apply{
+            rvFavNews.apply {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = mAdapter
             }
@@ -54,12 +55,16 @@ class FavouriteFragment : Fragment() {
 
         mAdapter.apply {
             onItemClicked {
-                findNavController().navigate(FavouriteFragmentDirections.actionDestFavouriteToDestNewsDetails(
-                    Article(author = it.author, content = it.content,
-                        description = it.description, publishedAt = it.publishedAt,
-                        source = null, title = it.title,
-                        urlToImage = it.urlToImage, url = it.url),it.category
-                ))
+                findNavController().navigate(
+                    FavouriteFragmentDirections.actionDestFavouriteToDestNewsDetails(
+                        Article(
+                            author = it.author, content = it.content,
+                            description = it.description, publishedAt = it.publishedAt,
+                            source = null, title = it.title,
+                            urlToImage = it.urlToImage, url = it.url
+                        ), it.category
+                    )
+                )
             }
             onFavouriteItemClicked {
                 mViewModel.deleteFavouriteList(it)
@@ -70,27 +75,42 @@ class FavouriteFragment : Fragment() {
     private fun setObservers() {
         mViewModel.apply {
             loading.observe(viewLifecycleOwner) {
-                showLoadingView(it)
+                mBinding.hideFullScreenView()
+                mBinding.showLoadingView(it)
             }
             errorMessage.observe(viewLifecycleOwner) {
-                mBinding.apply {
-                    rvFavNews.visibility=View.GONE
-                    tvErrorMessage.visibility=View.VISIBLE
-                    tvErrorMessage.text=it
-                }
+                mBinding.showErrorView(it)
             }
             favouriteList.observe(viewLifecycleOwner) {
+                mBinding.hideFullScreenView()
                 mAdapter.submitList(it)
             }
         }
     }
 
-    private fun showLoadingView(it: Boolean) {
-        mBinding.apply {
-            rvFavNews.handleVisibility(!it)
-            shimmerProgress.handleShimmer(it)
-            shimmerProgress.handleVisibility(it)
+    private fun FavouriteFragmentBinding.hideFullScreenView() {
+        fullScreenView.apply {
+            gone()
+            hide(FullScreenViewType.LoadingView)
+            hide(FullScreenViewType.ErrorView)
+            hide(FullScreenViewType.NoItemView)
         }
+    }
+
+    private fun FavouriteFragmentBinding.showErrorView(it: String?) {
+        fullScreenView.visible()
+        when (it) {
+            Constants.NO_ITEM_FOUND -> fullScreenView.show(FullScreenViewType.NoItemView)
+            else -> fullScreenView.show(FullScreenViewType.ErrorView)
+        }
+//        fullScreenView.hide(FullScreenViewType.LoadingView)
+//        fullScreenView.hide(FullScreenViewType.ErrorView)
+    }
+
+    private fun FavouriteFragmentBinding.showLoadingView(it: Boolean) {
+        rvFavNews.handleVisibility(!it)
+        shimmerProgress.handleShimmer(it)
+        shimmerProgress.handleVisibility(it)
     }
 
 }
