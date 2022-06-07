@@ -69,18 +69,16 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+
+    <com.soumik.newsapp.core.customViews.FullScreenView
+        android:layout_width="@dimen/dimen_300_dp"
+        android:layout_height="@dimen/dimen_300_dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:id="@+id/errorView"
-        android:visibility="gone"
-        app:lottie_fileName="error_view.json"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"/>
+        android:id="@+id/fullScreenView"
+        android:visibility="gone"/>
 
 
     <com.google.android.material.progressindicator.LinearProgressIndicator

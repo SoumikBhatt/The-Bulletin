@@ -13,9 +13,12 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.nybsys.sentok.core.customViews.FullScreenViewType
 import com.soumik.newsapp.NewsApp
 import com.soumik.newsapp.R
+import com.soumik.newsapp.core.utils.gone
 import com.soumik.newsapp.core.utils.handleVisibility
+import com.soumik.newsapp.core.utils.visible
 import com.soumik.newsapp.databinding.FragmentNewsFeedBinding
 import com.soumik.newsapp.features.home.presentation.HomeFragmentDirections
 import com.soumik.newsapp.features.home.presentation.newsfeed.viewmodel.NewsFeedViewModel
@@ -74,6 +77,7 @@ class NewsFeedFragment : Fragment() {
             pagedNewsData.observe(viewLifecycleOwner) {
                 Log.d(TAG, "setObservers: observing pagedNewsData")
                 mBinding.apply {
+                    hideFullScreenView()
                     rvNews.visibility = View.VISIBLE
                     swipeRefresh.isRefreshing = false
                 }
@@ -85,6 +89,7 @@ class NewsFeedFragment : Fragment() {
             }
 
             errorMessage.observe(viewLifecycleOwner) {
+                Log.d(TAG, "setObservers: Error: $it")
                 mBinding.showErrorView()
             }
 
@@ -96,10 +101,19 @@ class NewsFeedFragment : Fragment() {
         }
     }
 
+    private fun FragmentNewsFeedBinding.hideFullScreenView() {
+        fullScreenView.apply {
+            gone()
+            hide(FullScreenViewType.LoadingView)
+            hide(FullScreenViewType.ErrorView)
+            hide(FullScreenViewType.NoItemView)
+        }
+    }
+
     private fun FragmentNewsFeedBinding.showLoadingView(it: Boolean) {
         if (it) {
+            hideFullScreenView()
             rvNews.visibility = View.GONE
-            errorView.visibility = View.GONE
             shimmerProgress.visibility = View.VISIBLE
             shimmerProgress.startShimmer()
         } else {
@@ -109,11 +123,12 @@ class NewsFeedFragment : Fragment() {
     }
 
     private fun FragmentNewsFeedBinding.showErrorView() {
+        fullScreenView.visible()
         swipeRefresh.isRefreshing = false
         prependProgress.handleVisibility(false)
         appendProgress.handleVisibility(false)
         rvNews.handleVisibility(false)
-        errorView.handleVisibility(true)
+        fullScreenView.show(FullScreenViewType.ErrorView)
     }
 
     /*

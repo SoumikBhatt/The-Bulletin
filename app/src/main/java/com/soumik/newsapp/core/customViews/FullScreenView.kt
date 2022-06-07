@@ -59,9 +59,9 @@ class FullScreenView @JvmOverloads constructor(
                 if (error_view.isGone()) {
                     error_view.visible()
                 }
-                if (error_text.isGone()) {
-                    error_text.visible()
-                }
+//                if (error_text.isGone()) {
+//                    error_text.visible()
+//                }
             }
             FullScreenViewType.NoItemView -> {
                 if (loader.isVisible()) {
