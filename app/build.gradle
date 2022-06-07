@@ -51,8 +51,8 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -109,6 +109,9 @@ dependencies {
     def paging_version = "3.1.1"
     implementation("androidx.paging:paging-runtime-ktx:$paging_version")
 
+    // lottie
+    def lottie_version = "5.2.0"
+    implementation "com.airbnb.android:lottie:$lottie_version"
 
 
     testImplementation 'junit:junit:4.13.2'

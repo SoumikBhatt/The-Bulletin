@@ -1,5 +1,6 @@
 package com.soumik.newsapp.features.home.presentation.newsfeed.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -43,6 +44,7 @@ class NewsFeedViewModel @Inject constructor(
             _loading.value = true
             viewModelScope.launch {
                 homeRepository.fetchTopHeadlines(country, category, page).catch {
+                    Log.d(TAG, "fetchTopHeadlines: 1")
                     _loading.value = false
                     _errorMessage.value = Constants.ERROR_MESSAGE
                 }.cachedIn(viewModelScope).collectLatest {

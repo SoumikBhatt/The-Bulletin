@@ -49,7 +49,7 @@ class NewsFeedPagingSource(
                         prevKey = if (page == STARTING_PAGE_NUMBER) null else page - 1
                     )
                 } else LoadResult.Error(Throwable(Constants.ERROR_MESSAGE))
-            } else LoadResult.Error(Throwable(Constants.ERROR_MESSAGE))
+            } else LoadResult.Error(Throwable("${response.code()}"))
         } catch (exception: IOException) {
             return LoadResult.Error(exception)
         } catch (exception: HttpException) {

@@ -15,7 +15,7 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.soumik.newsapp.NewsApp
 import com.soumik.newsapp.R
-import com.soumik.newsapp.core.utils.Messenger
+import com.soumik.newsapp.core.utils.handleVisibility
 import com.soumik.newsapp.databinding.FragmentNewsFeedBinding
 import com.soumik.newsapp.features.home.presentation.HomeFragmentDirections
 import com.soumik.newsapp.features.home.presentation.newsfeed.viewmodel.NewsFeedViewModel
@@ -85,23 +85,35 @@ class NewsFeedFragment : Fragment() {
             }
 
             errorMessage.observe(viewLifecycleOwner) {
-                mBinding.swipeRefresh.isRefreshing = false
-                Messenger.showSnackBar(mBinding, it)
+                mBinding.showErrorView()
             }
 
             loading.observe(viewLifecycleOwner) {
                 Log.d(TAG, "setObservers: Loading: $it")
-                if (it) {
-                    mBinding.rvNews.visibility = View.GONE
-                    mBinding.shimmerProgress.visibility = View.VISIBLE
-                    mBinding.shimmerProgress.startShimmer()
-                } else {
-                    mBinding.shimmerProgress.visibility = View.GONE
-                    mBinding.shimmerProgress.stopShimmer()
-                }
+                mBinding.showLoadingView(it)
             }
 
         }
+    }
+
+    private fun FragmentNewsFeedBinding.showLoadingView(it: Boolean) {
+        if (it) {
+            rvNews.visibility = View.GONE
+            errorView.visibility = View.GONE
+            shimmerProgress.visibility = View.VISIBLE
+            shimmerProgress.startShimmer()
+        } else {
+            shimmerProgress.visibility = View.GONE
+            shimmerProgress.stopShimmer()
+        }
+    }
+
+    private fun FragmentNewsFeedBinding.showErrorView() {
+        swipeRefresh.isRefreshing = false
+        prependProgress.handleVisibility(false)
+        appendProgress.handleVisibility(false)
+        rvNews.handleVisibility(false)
+        errorView.handleVisibility(true)
     }
 
     /*
@@ -119,6 +131,9 @@ class NewsFeedFragment : Fragment() {
                         } else {
                             mViewModel.showLoader(false)
                             mBinding.rvNews.visibility = View.VISIBLE
+                        }
+                        if (it.source.refresh is LoadState.Error) {
+                            mBinding.showErrorView()
                         }
                     }
                 }
