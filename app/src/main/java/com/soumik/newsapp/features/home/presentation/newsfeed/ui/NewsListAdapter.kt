@@ -30,21 +30,23 @@ class NewsListAdapter : BasePagingAdapter<Article, ItemNewsBinding>(
     }
 ) {
 
-    private var onItemClicked : ((Article)->Unit) ? =null
-    private var onFavouriteItemClicked : ((Article)->Unit) ? =null
+    private var onItemClicked: ((Article) -> Unit)? = null
+    private var onFavouriteItemClicked: ((Article) -> Unit)? = null
 
     override fun createBinding(parent: ViewGroup): ItemNewsBinding {
         return ItemNewsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     }
 
-    override fun bind(binding: ItemNewsBinding, item: Article,position:Int) {
+    override fun bind(binding: ItemNewsBinding, item: Article, position: Int) {
         binding.apply {
-            Picasso.get().load(item.urlToImage).placeholder(R.mipmap.ic_launcher).into(ivImage)
-            tvAuthor.text = HtmlCompat.fromHtml(item.author?:"",FROM_HTML_MODE_LEGACY)
-            tvDescription.text = HtmlCompat.fromHtml(item.description?:"",FROM_HTML_MODE_LEGACY)
-            tvTitle.text = HtmlCompat.fromHtml(item.title?:"",FROM_HTML_MODE_LEGACY)
+            Picasso.get().load(item.urlToImage)
+                .resize(2048, 1600)
+                .onlyScaleDown().placeholder(R.mipmap.ic_launcher).into(ivImage)
+            tvAuthor.text = HtmlCompat.fromHtml(item.author ?: "", FROM_HTML_MODE_LEGACY)
+            tvDescription.text = HtmlCompat.fromHtml(item.description ?: "", FROM_HTML_MODE_LEGACY)
+            tvTitle.text = HtmlCompat.fromHtml(item.title ?: "", FROM_HTML_MODE_LEGACY)
 
-            root.setOnClickListener { onItemClicked?.let { it(item) }}
+            root.setOnClickListener { onItemClicked?.let { it(item) } }
 
             ivFavouriteButton.setOnClickListener {
                 onFavouriteItemClicked?.let { it(item) }
@@ -53,7 +55,7 @@ class NewsListAdapter : BasePagingAdapter<Article, ItemNewsBinding>(
         }
     }
 
-    fun onItemClicked(listener: ((Article)->Unit)) {
+    fun onItemClicked(listener: ((Article) -> Unit)) {
         onItemClicked = listener
     }
 
