@@ -37,7 +37,7 @@ class NewsDetailsFragment : Fragment() {
     private var isFullNewsClicked = false
 
     @Inject
-    lateinit var mViewModel : NewsDetailsViewModel
+    lateinit var mViewModel: NewsDetailsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,9 +59,19 @@ class NewsDetailsFragment : Fragment() {
         mViewModel.apply {
             isFavourite.observe(viewLifecycleOwner) {
                 if (it) {
-                    mBinding.ivFavouriteButton.setImageDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.ic_bookmark_24))
+                    mBinding.ivFavouriteButton.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_bookmark_24
+                        )
+                    )
                 } else {
-                    mBinding.ivFavouriteButton.setImageDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.ic_bookmark_border_24))
+                    mBinding.ivFavouriteButton.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_bookmark_border_24
+                        )
+                    )
                 }
             }
         }
@@ -69,13 +79,13 @@ class NewsDetailsFragment : Fragment() {
 
     private fun init() {
         mViewModel.apply {
-            checkIfFavourite(args.article?.title!!,args.category!!, args.article?.author)
+            checkIfFavourite(args.article?.title!!, args.category!!, args.article?.author)
         }
     }
 
     override fun onDestroyView() {
         sharedViewModel.apply {
-            showBottomNav.value=Event(!isFullNewsClicked)
+            showBottomNav.value = Event(!isFullNewsClicked)
         }
         super.onDestroyView()
     }
@@ -83,17 +93,28 @@ class NewsDetailsFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun setUpViews() {
 
-        sharedViewModel.showBottomNav.value= Event(false)
-        isFullNewsClicked=false
+        sharedViewModel.showBottomNav.value = Event(false)
+        isFullNewsClicked = false
 
         val article = args.article
         mBinding.apply {
-            Picasso.get().load(article?.urlToImage).placeholder(R.mipmap.ic_launcher).into(ivNewsImage)
-            tvNewsTitle.text = HtmlCompat.fromHtml(article?.title ?: "", HtmlCompat.FROM_HTML_MODE_LEGACY)
-            tvNewsAuthor.text = HtmlCompat.fromHtml(article?.author ?: "", HtmlCompat.FROM_HTML_MODE_LEGACY)
-            tvNewsTime.text = DateUtils.provideFormattedDate("yyyy-MM-dd'T'HH:mm:ss'Z'", article?.publishedAt) + " | "+ DateUtils.provideFormattedTime("yyyy-MM-dd'T'HH:mm:ss'Z'", article?.publishedAt)
-            tvNewsContent.text = HtmlCompat.fromHtml(article?.content ?: "", HtmlCompat.FROM_HTML_MODE_LEGACY)
-            tvNewsDescription.text = HtmlCompat.fromHtml(article?.description?:"",HtmlCompat.FROM_HTML_MODE_LEGACY)
+            Picasso.get().load(article?.urlToImage).resize(2048, 1600)
+                .onlyScaleDown().placeholder(R.mipmap.ic_launcher).into(ivNewsImage)
+            tvNewsTitle.text =
+                HtmlCompat.fromHtml(article?.title ?: "", HtmlCompat.FROM_HTML_MODE_LEGACY)
+            tvNewsAuthor.text =
+                HtmlCompat.fromHtml(article?.author ?: "", HtmlCompat.FROM_HTML_MODE_LEGACY)
+            tvNewsTime.text = DateUtils.provideFormattedDate(
+                "yyyy-MM-dd'T'HH:mm:ss'Z'",
+                article?.publishedAt
+            ) + " | " + DateUtils.provideFormattedTime(
+                "yyyy-MM-dd'T'HH:mm:ss'Z'",
+                article?.publishedAt
+            )
+            tvNewsContent.text =
+                HtmlCompat.fromHtml(article?.content ?: "", HtmlCompat.FROM_HTML_MODE_LEGACY)
+            tvNewsDescription.text =
+                HtmlCompat.fromHtml(article?.description ?: "", HtmlCompat.FROM_HTML_MODE_LEGACY)
 
             btnFullNews.setOnClickListener { showFullNews(article) }
             ivBackArrow.setOnClickListener { findNavController().navigateUp() }
@@ -101,10 +122,34 @@ class NewsDetailsFragment : Fragment() {
             ivFavouriteButton.setOnClickListener {
                 mViewModel.apply {
                     Log.d(TAG, "setUpViews: isFav: ${isFavourite.value}")
-                    if (isFavourite.value==true) {
-                        mViewModel.deleteFavouriteList(Favourite(author = article?.author, content = article?.content, description = article?.description, publishedAt = article?.publishedAt, title = article?.title, url = article?.url, urlToImage = article?.urlToImage, category = args.category, isFavourite = 1))
+                    if (isFavourite.value == true) {
+                        mViewModel.deleteFavouriteList(
+                            Favourite(
+                                author = article?.author,
+                                content = article?.content,
+                                description = article?.description,
+                                publishedAt = article?.publishedAt,
+                                title = article?.title,
+                                url = article?.url,
+                                urlToImage = article?.urlToImage,
+                                category = args.category,
+                                isFavourite = 1
+                            )
+                        )
                     } else {
-                        mViewModel.insertFavouriteItem(Favourite(author = article?.author, content = article?.content, description = article?.description, publishedAt = article?.publishedAt, title = article?.title, url = article?.url, urlToImage = article?.urlToImage, category = args.category, isFavourite = 1))
+                        mViewModel.insertFavouriteItem(
+                            Favourite(
+                                author = article?.author,
+                                content = article?.content,
+                                description = article?.description,
+                                publishedAt = article?.publishedAt,
+                                title = article?.title,
+                                url = article?.url,
+                                urlToImage = article?.urlToImage,
+                                category = args.category,
+                                isFavourite = 1
+                            )
+                        )
                     }
                 }
             }
@@ -114,7 +159,12 @@ class NewsDetailsFragment : Fragment() {
     private fun showFullNews(article: Article?) {
         isFullNewsClicked = true
 //        requireContext().launchUrl(article?.url)
-        findNavController().navigate(NewsDetailsFragmentDirections.actionDestNewsDetailsToDestWebView(article?.title,article?.url))
+        findNavController().navigate(
+            NewsDetailsFragmentDirections.actionDestNewsDetailsToDestWebView(
+                article?.title,
+                article?.url
+            )
+        )
     }
 
 }
