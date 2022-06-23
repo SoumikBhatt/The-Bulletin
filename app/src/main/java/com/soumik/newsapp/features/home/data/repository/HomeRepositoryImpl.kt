@@ -4,13 +4,12 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.soumik.newsapp.core.utils.Constants
-import com.soumik.newsapp.core.utils.Resource
-import com.soumik.newsapp.features.home.data.source.remote.HomeWebService
+import com.soumik.newsapp.features.home.data.source.local.ArticleDao
 import com.soumik.newsapp.features.home.data.source.paging.NewsFeedPagingSource
+import com.soumik.newsapp.features.home.data.source.remote.HomeWebService
+import com.soumik.newsapp.features.home.domain.entity.ArticleEntity
 import com.soumik.newsapp.features.home.domain.model.Article
-import com.soumik.newsapp.features.home.domain.model.NewsModel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 /**
@@ -19,9 +18,9 @@ piyal.developer@gmail.com
 copyright (c) 2022 Soumik Bhattacharjee. All rights reserved
  **/
 
-class HomeRepositoryImpl @Inject constructor(private val remoteService: HomeWebService) :
+class HomeRepositoryImpl @Inject constructor(private val remoteService: HomeWebService,private val articleDao: ArticleDao) :
     HomeRepository {
-    override fun fetchTopHeadlines(
+    override suspend fun fetchTopHeadlines(
         country: String?,
         category: String?,
         page: Int
@@ -34,8 +33,11 @@ class HomeRepositoryImpl @Inject constructor(private val remoteService: HomeWebS
                 NewsFeedPagingSource(
                     category = category?:"",
                     country = country?:"us",
-                    homeWebService = remoteService
+                    homeWebService = remoteService,
+                    articleDao = articleDao
                 )
             }).flow
     }
+
+    override suspend fun fetchArticlesFromDB(page: Int): Flow<List<ArticleEntity>> = articleDao.getArticles(page)
 }

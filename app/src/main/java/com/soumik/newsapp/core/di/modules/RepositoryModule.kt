@@ -6,6 +6,7 @@ import com.soumik.newsapp.features.favourite.data.repository.IFavouriteRepositor
 import com.soumik.newsapp.features.favourite.data.source.local.FavouriteDao
 import com.soumik.newsapp.features.home.data.repository.HomeRepository
 import com.soumik.newsapp.features.home.data.repository.HomeRepositoryImpl
+import com.soumik.newsapp.features.home.data.source.local.ArticleDao
 import com.soumik.newsapp.features.home.data.source.remote.HomeWebService
 import dagger.Module
 import dagger.Provides
@@ -22,8 +23,8 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideHomeRepositoryImplementation(remoteService: HomeWebService) : HomeRepository {
-        return HomeRepositoryImpl(remoteService)
+    fun provideHomeRepositoryImplementation(remoteService: HomeWebService,articleDao: ArticleDao) : HomeRepository {
+        return HomeRepositoryImpl(remoteService,articleDao)
     }
 
     @Provides

@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.soumik.newsapp.core.persistance.AppDatabase
 import com.soumik.newsapp.features.favourite.data.source.local.FavouriteDao
+import com.soumik.newsapp.features.home.data.source.local.ArticleDao
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -28,5 +29,11 @@ class StorageModule {
     @Provides
     fun provideFavouriteDao(database: AppDatabase) : FavouriteDao {
         return database.getFavouriteDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideArticleDao(database: AppDatabase) : ArticleDao {
+        return database.getArticleDao()
     }
 }

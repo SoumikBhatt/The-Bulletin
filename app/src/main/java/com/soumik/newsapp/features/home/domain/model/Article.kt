@@ -3,6 +3,7 @@ package com.soumik.newsapp.features.home.domain.model
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import com.soumik.newsapp.features.home.domain.entity.ArticleEntity
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
