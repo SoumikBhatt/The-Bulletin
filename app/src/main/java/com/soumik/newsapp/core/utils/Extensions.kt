@@ -9,8 +9,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.annotation.LayoutRes
+import androidx.core.content.ContextCompat
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.facebook.shimmer.ShimmerFrameLayout
+import com.soumik.newsapp.R
 
 private const val TAG = "Helper"
 
@@ -29,7 +35,6 @@ fun View.isGone() = this.visibility == View.GONE
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View =
     LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
-
 
 
 fun Context.launchUrl(url: String?) {
@@ -52,18 +57,21 @@ fun ShimmerFrameLayout.handleShimmer(value: Boolean) {
     else this.stopShimmer()
 }
 
-fun Context.share(subject:String,body:String,chooserTitle:String){
+fun Context.share(subject: String, body: String, chooserTitle: String) {
     try {
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.type = "text/plain"
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "$body\n\n\nDownload the App now: https://play.google.com/store/apps/details?id=$packageName")
+        shareIntent.putExtra(
+            Intent.EXTRA_TEXT,
+            "$body\n\n\nDownload the App now: https://play.google.com/store/apps/details?id=$packageName"
+        )
         startActivity(Intent.createChooser(shareIntent, chooserTitle))
     } catch (e: Exception) {
     }
 }
 
-fun Context.feedback(email:String,subject: String?="",body:String?=""){
+fun Context.feedback(email: String, subject: String? = "", body: String? = "") {
     val installed = appInstalledOrNot("com.google.android.gm")
     if (installed) {
         try {
@@ -92,7 +100,7 @@ fun Context.feedback(email:String,subject: String?="",body:String?=""){
             val intent = Intent(Intent.ACTION_VIEW)
             val data = Uri.parse("mailto:$email?subject=$subject")
             intent.data = data
-            intent.putExtra(Intent.EXTRA_TEXT,body)
+            intent.putExtra(Intent.EXTRA_TEXT, body)
             startActivity(intent)
 
         } catch (e: Exception) {
@@ -113,7 +121,7 @@ private fun Context.appInstalledOrNot(uri: String): Boolean {
     return appInstalled
 }
 
-fun Context.rateApp(){
+fun Context.rateApp() {
     val appId = packageName
     val rateIntent = Intent(
         Intent.ACTION_VIEW,
@@ -150,7 +158,8 @@ fun Context.rateApp(){
 
             }
         }
-    } catch (e: Exception) {}
+    } catch (e: Exception) {
+    }
 
     // if GP not present on device, open web browser
     if (!marketFound) {
@@ -162,13 +171,50 @@ fun Context.rateApp(){
     }
 }
 
-fun Context.likeOnFB(pageID:String,pageUserName:String){
+fun Context.likeOnFB(pageID: String, pageUserName: String) {
     return try {
         packageManager.getPackageInfo("com.facebook.katana", 0)
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/$pageID"))
-        return  startActivity(intent)
+        return startActivity(intent)
 
     } catch (e: Exception) {
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/$pageUserName")))
+        startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://www.facebook.com/$pageUserName")
+            )
+        )
+    }
+}
+
+/**
+ * load image with url
+ */
+fun ImageView.loadImage(url: String?) {
+    try {
+        val circularProgressDrawable = CircularProgressDrawable(context)
+        circularProgressDrawable.apply {
+            strokeWidth = 5f
+            centerRadius = 30f
+            setColorSchemeColors(
+                ContextCompat.getColor(context, R.color.black)
+            )
+            start()
+        }
+
+        if (!url.isNullOrEmpty()) {
+            Glide.with(this)
+                .load(url)
+                .apply(RequestOptions().override(2048, 1600))
+                .placeholder(circularProgressDrawable)
+                .into(this)
+        } else {
+            Glide.with(this)
+                .load(R.drawable.ic_bulletin_app)
+                .into(this)
+        }
+
+
+    } catch (e: Exception) {
     }
 }

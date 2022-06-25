@@ -6,11 +6,10 @@ import androidx.core.text.HtmlCompat
 import androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
 import androidx.recyclerview.widget.DiffUtil
 import com.soumik.newsapp.R
-import com.soumik.newsapp.core.base.BaseAdapter
 import com.soumik.newsapp.core.base.BasePagingAdapter
+import com.soumik.newsapp.core.utils.loadImage
 import com.soumik.newsapp.databinding.ItemNewsBinding
 import com.soumik.newsapp.features.home.domain.model.Article
-import com.squareup.picasso.Picasso
 
 /**
 created by Soumik on 22/3/22.
@@ -39,10 +38,10 @@ class NewsListAdapter : BasePagingAdapter<Article, ItemNewsBinding>(
 
     override fun bind(binding: ItemNewsBinding, item: Article, position: Int) {
         binding.apply {
-            Picasso.get().load(item.urlToImage)
-                .resize(2048, 1600)
-                .onlyScaleDown().placeholder(R.mipmap.ic_launcher).into(ivImage)
+            ivImage.loadImage(item.urlToImage)
             tvAuthor.text = HtmlCompat.fromHtml(item.author ?: "", FROM_HTML_MODE_LEGACY)
+
+
             tvDescription.text = HtmlCompat.fromHtml(item.description ?: "", FROM_HTML_MODE_LEGACY)
             tvTitle.text = HtmlCompat.fromHtml(item.title ?: "", FROM_HTML_MODE_LEGACY)
 

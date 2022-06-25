@@ -41,6 +41,7 @@
             app:layout_constraintEnd_toStartOf="@id/iv_image"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
             tools:text="Laurence Norman, Georgi Kantchev"
+            android:textColor="@color/orange"
             android:textSize="@dimen/text_12"
             android:letterSpacing="0.05"
             android:layout_marginTop="3dp"
