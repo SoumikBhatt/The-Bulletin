@@ -1,15 +1,14 @@
 package com.soumik.newsapp.core.base
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.soumik.newsapp.databinding.ActivityMainBinding
 import com.soumik.newsapp.core.SharedViewModel
-import com.soumik.newsapp.core.utils.Event
 import com.soumik.newsapp.core.utils.EventObserver
+import com.soumik.newsapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,9 +20,6 @@ class MainActivity : AppCompatActivity() {
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         val view = mBinding.root
         setContentView(view)
-
-//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
-//        val navController = navHostFragment.navController
         val navController = mBinding.fragmentContainerView.getFragment<NavHostFragment>().navController
 
         mBinding.btmNavHome.setupWithNavController(navController)

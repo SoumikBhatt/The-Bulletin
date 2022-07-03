@@ -7,8 +7,10 @@ import com.soumik.newsapp.core.utils.Constants
 import com.soumik.newsapp.features.home.data.source.local.ArticleDao
 import com.soumik.newsapp.features.home.data.source.remote.HomeWebService
 import com.soumik.newsapp.features.home.domain.model.Article
+import com.soumik.newsapp.features.home.domain.model.NewsModel
 import com.soumik.newsapp.features.home.domain.model.asDatabaseModel
 import retrofit2.HttpException
+import retrofit2.Response
 import java.io.IOException
 
 /**
@@ -47,7 +49,7 @@ class NewsFeedPagingSource(
                 if (response.body()!!.articles != null) {
                     val article = response.body()!!.articles!!
                     Log.d("TAG", "load: ${article.size}")
-                    articleDao.insertArticleList(response.body()?.asDatabaseModel(page)!!)
+//                    insertArticlesToLocalDB(response, page)
                     LoadResult.Page(
                         data = article,
                         nextKey = if (article.isNotEmpty()) page + 1 else null,
@@ -60,5 +62,12 @@ class NewsFeedPagingSource(
         } catch (exception: HttpException) {
             return LoadResult.Error(exception)
         }
+    }
+
+    private suspend fun insertArticlesToLocalDB(
+        response: Response<NewsModel>,
+        page: Int
+    ) {
+        articleDao.insertArticleList(response.body()?.asDatabaseModel(page)!!)
     }
 }

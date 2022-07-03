@@ -38,7 +38,7 @@ class NewsListAdapter : BasePagingAdapter<Article, ItemNewsBinding>(
 
     override fun bind(binding: ItemNewsBinding, item: Article, position: Int) {
         binding.apply {
-            if (item.urlToImage?.isNotEmpty()!!) {
+            if (item.urlToImage!=null && item.urlToImage!!.isNotEmpty()) {
                 Picasso.get().load(item.urlToImage)
                     .resize(2048, 1600)
                     .onlyScaleDown().placeholder(R.mipmap.ic_launcher).into(ivImage)
