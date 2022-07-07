@@ -17,12 +17,11 @@ import com.soumik.newsapp.R
 import com.soumik.newsapp.core.SharedViewModel
 import com.soumik.newsapp.core.utils.DateUtils
 import com.soumik.newsapp.core.utils.Event
-import com.soumik.newsapp.core.utils.launchUrl
+import com.soumik.newsapp.core.utils.loadImage
 import com.soumik.newsapp.databinding.NewsDetailsFragmentBinding
 import com.soumik.newsapp.features.favourite.domain.entity.Favourite
 import com.soumik.newsapp.features.home.domain.model.Article
 import com.soumik.newsapp.features.home.presentation.newsDetails.viewmodel.NewsDetailsViewModel
-import com.squareup.picasso.Picasso
 import javax.inject.Inject
 
 class NewsDetailsFragment : Fragment() {
@@ -98,8 +97,9 @@ class NewsDetailsFragment : Fragment() {
 
         val article = args.article
         mBinding.apply {
-            Picasso.get().load(article?.urlToImage).resize(2048, 1600)
-                .onlyScaleDown().placeholder(R.mipmap.ic_launcher).into(ivNewsImage)
+            if (article?.urlToImage!=null && article.urlToImage!!.isNotEmpty()) {
+                ivNewsImage.loadImage(url = article.urlToImage!!, placeHolder = ContextCompat.getDrawable(ivNewsImage.context,R.mipmap.ic_launcher))
+            }
             tvNewsTitle.text =
                 HtmlCompat.fromHtml(article?.title ?: "", HtmlCompat.FROM_HTML_MODE_LEGACY)
             tvNewsAuthor.text =
