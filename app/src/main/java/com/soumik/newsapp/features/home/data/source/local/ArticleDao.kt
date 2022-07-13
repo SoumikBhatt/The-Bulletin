@@ -1,9 +1,6 @@
 package com.soumik.newsapp.features.home.data.source.local
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.soumik.newsapp.features.home.domain.entity.ArticleEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -24,4 +21,7 @@ interface ArticleDao {
 
     @Query("SELECT * FROM TBL_ARTICLES WHERE page= :page")
     fun getArticles(page: Int) : Flow<List<ArticleEntity>>
+
+    @Delete
+    suspend fun deleteArticlesFromDB(articleEntities: List<ArticleEntity>)
 }

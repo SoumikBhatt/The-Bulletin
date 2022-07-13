@@ -27,6 +27,7 @@ class NewsFeedPagingSource(
 ) : PagingSource<Int, Article>() {
 
     companion object {
+        private const val TAG = "NewsFeedPagingSource"
         private const val STARTING_PAGE_NUMBER = 1
     }
 
@@ -49,6 +50,7 @@ class NewsFeedPagingSource(
                 if (response.body()!!.articles != null) {
                     val article = response.body()!!.articles!!
                     Log.d("TAG", "load: ${article.size}")
+//                    deletePreviousArticles(response, page)
 //                    insertArticlesToLocalDB(response, page)
                     LoadResult.Page(
                         data = article,
@@ -64,10 +66,20 @@ class NewsFeedPagingSource(
         }
     }
 
+    private suspend fun deletePreviousArticles(
+        response: Response<NewsModel>,
+        page: Int
+    ) {
+        Log.d(TAG, "deletePreviousArticles: ")
+        articleDao.deleteArticlesFromDB(response.body()?.asDatabaseModel(page)!!)
+    }
+
     private suspend fun insertArticlesToLocalDB(
         response: Response<NewsModel>,
         page: Int
     ) {
+        Log.d(TAG, "insertArticlesToLocalDB: ")
         articleDao.insertArticleList(response.body()?.asDatabaseModel(page)!!)
     }
+
 }

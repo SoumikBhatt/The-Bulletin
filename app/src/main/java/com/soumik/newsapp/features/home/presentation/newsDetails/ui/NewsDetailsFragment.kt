@@ -15,6 +15,7 @@ import androidx.navigation.fragment.navArgs
 import com.soumik.newsapp.NewsApp
 import com.soumik.newsapp.R
 import com.soumik.newsapp.core.SharedViewModel
+import com.soumik.newsapp.core.ads.BannerAd
 import com.soumik.newsapp.core.utils.DateUtils
 import com.soumik.newsapp.core.utils.Event
 import com.soumik.newsapp.core.utils.loadImage
@@ -31,7 +32,8 @@ class NewsDetailsFragment : Fragment() {
     }
 
     private val sharedViewModel: SharedViewModel by activityViewModels()
-    private lateinit var mBinding: NewsDetailsFragmentBinding
+    private var _binding : NewsDetailsFragmentBinding?=null
+    private var mBinding: NewsDetailsFragmentBinding? = _binding
     private val args: NewsDetailsFragmentArgs by navArgs()
     private var isFullNewsClicked = false
 
@@ -41,14 +43,16 @@ class NewsDetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         mBinding = NewsDetailsFragmentBinding.inflate(inflater, container, false)
-        return mBinding.root
+        return mBinding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity().application as NewsApp).appComponent.inject(this)
+        BannerAd.loadBanner(requireActivity(),mBinding!!.bannerAdContainer)
+
         init()
         setUpObservers()
         setUpViews()
@@ -58,14 +62,14 @@ class NewsDetailsFragment : Fragment() {
         mViewModel.apply {
             isFavourite.observe(viewLifecycleOwner) {
                 if (it) {
-                    mBinding.ivFavouriteButton.setImageDrawable(
+                    mBinding?.ivFavouriteButton?.setImageDrawable(
                         ContextCompat.getDrawable(
                             requireContext(),
                             R.drawable.ic_bookmark_24
                         )
                     )
                 } else {
-                    mBinding.ivFavouriteButton.setImageDrawable(
+                    mBinding?.ivFavouriteButton?.setImageDrawable(
                         ContextCompat.getDrawable(
                             requireContext(),
                             R.drawable.ic_bookmark_border_24
@@ -86,6 +90,11 @@ class NewsDetailsFragment : Fragment() {
         sharedViewModel.apply {
             showBottomNav.value = Event(!isFullNewsClicked)
         }
+
+        BannerAd.removeBanner(mBinding!!.bannerAdContainer)
+
+        _binding = null
+
         super.onDestroyView()
     }
 
@@ -96,7 +105,7 @@ class NewsDetailsFragment : Fragment() {
         isFullNewsClicked = false
 
         val article = args.article
-        mBinding.apply {
+        mBinding?.apply {
             if (article?.urlToImage!=null && article.urlToImage!!.isNotEmpty()) {
                 ivNewsImage.loadImage(url = article.urlToImage!!, placeHolder = ContextCompat.getDrawable(ivNewsImage.context,R.mipmap.ic_launcher))
             }

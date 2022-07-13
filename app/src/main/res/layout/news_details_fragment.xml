@@ -19,7 +19,6 @@
         android:layout_marginStart="@dimen/margin_16"
         android:layout_marginTop="@dimen/margin_16"/>
 
-
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -136,5 +135,13 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+
+    <FrameLayout
+        android:layout_width="@dimen/dimen_0_dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/banner_ad_container"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

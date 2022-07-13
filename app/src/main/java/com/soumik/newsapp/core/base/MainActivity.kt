@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.gms.ads.MobileAds
 import com.soumik.newsapp.core.SharedViewModel
 import com.soumik.newsapp.core.utils.EventObserver
 import com.soumik.newsapp.databinding.ActivityMainBinding
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         mBinding.btmNavHome.setupWithNavController(navController)
 
+        MobileAds.initialize(this) {}
 
         setViews()
     }

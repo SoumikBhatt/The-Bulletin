@@ -105,6 +105,12 @@ dependencies {
     def lottie_version = "5.2.0"
     implementation "com.airbnb.android:lottie:$lottie_version"
 
+    // admob
+    implementation 'com.google.android.gms:play-services-ads:21.0.0'
+
+    // timber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-inline:3.11.1'
