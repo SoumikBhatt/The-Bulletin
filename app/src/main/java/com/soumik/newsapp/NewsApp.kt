@@ -1,6 +1,7 @@
 package com.soumik.newsapp
 
 import android.app.Application
+import android.content.Context
 import com.soumik.newsapp.core.di.component.AppComponent
 import com.soumik.newsapp.core.di.component.DaggerAppComponent
 import timber.log.Timber
@@ -16,9 +17,15 @@ class NewsApp : Application() {
         DaggerAppComponent.factory().create(applicationContext)
     }
 
+    companion object {
+        lateinit var mContext: Context
+    }
+
 
     override fun onCreate() {
         super.onCreate()
+
+        mContext = applicationContext
 
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())

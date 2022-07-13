@@ -22,7 +22,7 @@
             android:value="ca-app-pub-4293619114743335~1720713887"/>
 
         <activity
-            android:name="com.soumik.newsapp.core.base.MainActivity"
+            android:name="com.soumik.newsapp.features.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package com.soumik.newsapp.core.base
+package com.soumik.newsapp.features
 
 import android.os.Bundle
 import android.view.View
