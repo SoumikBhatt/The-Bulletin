@@ -16,6 +16,7 @@ import com.soumik.newsapp.NewsApp
 import com.soumik.newsapp.R
 import com.soumik.newsapp.core.SharedViewModel
 import com.soumik.newsapp.core.ads.BannerAd
+import com.soumik.newsapp.core.ads.InterstitialAdMob
 import com.soumik.newsapp.core.utils.DateUtils
 import com.soumik.newsapp.core.utils.Event
 import com.soumik.newsapp.core.utils.loadImage
@@ -32,7 +33,7 @@ class NewsDetailsFragment : Fragment() {
     }
 
     private val sharedViewModel: SharedViewModel by activityViewModels()
-    private var _binding : NewsDetailsFragmentBinding?=null
+    private var _binding: NewsDetailsFragmentBinding? = null
     private var mBinding: NewsDetailsFragmentBinding? = _binding
     private val args: NewsDetailsFragmentArgs by navArgs()
     private var isFullNewsClicked = false
@@ -51,7 +52,7 @@ class NewsDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity().application as NewsApp).appComponent.inject(this)
-        BannerAd.loadBanner(requireActivity(),mBinding!!.bannerAdContainer)
+        BannerAd.loadBanner(requireActivity(), mBinding!!.bannerAdContainer)
 
         init()
         setUpObservers()
@@ -106,8 +107,14 @@ class NewsDetailsFragment : Fragment() {
 
         val article = args.article
         mBinding?.apply {
-            if (article?.urlToImage!=null && article.urlToImage!!.isNotEmpty()) {
-                ivNewsImage.loadImage(url = article.urlToImage!!, placeHolder = ContextCompat.getDrawable(ivNewsImage.context,R.mipmap.ic_launcher))
+            if (article?.urlToImage != null && article.urlToImage!!.isNotEmpty()) {
+                ivNewsImage.loadImage(
+                    url = article.urlToImage!!,
+                    placeHolder = ContextCompat.getDrawable(
+                        ivNewsImage.context,
+                        R.mipmap.ic_launcher
+                    )
+                )
             }
             tvNewsTitle.text =
                 HtmlCompat.fromHtml(article?.title ?: "", HtmlCompat.FROM_HTML_MODE_LEGACY)
@@ -167,13 +174,20 @@ class NewsDetailsFragment : Fragment() {
 
     private fun showFullNews(article: Article?) {
         isFullNewsClicked = true
-//        requireContext().launchUrl(article?.url)
-        findNavController().navigate(
-            NewsDetailsFragmentDirections.actionDestNewsDetailsToDestWebView(
-                article?.title,
-                article?.url
-            )
-        )
+
+        InterstitialAdMob.loadInterstitialAd(
+            activity = requireActivity(),
+            interstitialAdController = object : InterstitialAdMob.InterstitialAdController {
+                override fun onAddDismissed() {
+                    //        requireContext().launchUrl(article?.url)
+                    findNavController().navigate(
+                        NewsDetailsFragmentDirections.actionDestNewsDetailsToDestWebView(
+                            article?.title,
+                            article?.url
+                        )
+                    )
+                }
+            })
     }
 
 }
