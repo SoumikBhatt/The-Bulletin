@@ -93,6 +93,7 @@ class NewsDetailsFragment : Fragment() {
         }
 
         BannerAd.removeBanner(mBinding!!.bannerAdContainer)
+        BannerAd.destroy()
 
         _binding = null
 

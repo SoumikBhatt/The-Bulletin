@@ -14,6 +14,7 @@ Copyright (c) 2022 NybSys. All rights reserved
 object BannerAd : AdListener() {
 
     private const val TEST_BANNER_ID = "ca-app-pub-3940256099942544/6300978111"
+    private var adView : AdView?=null
 
     private fun Activity.getAdSize(): AdSize {
         val display = windowManager.defaultDisplay
@@ -34,21 +35,25 @@ object BannerAd : AdListener() {
         adUnitInt: String = TEST_BANNER_ID
     ) {
         try {
-            val adView = AdView(activity)
-            adView.adUnitId = adUnitInt
+            adView = AdView(activity)
+            adView?.adUnitId = adUnitInt
             adContainerView.addView(adView)
 
             val adRequest = AdRequest.Builder()
     //            .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build()
-            adView.setAdSize(size)
+            adView?.setAdSize(size)
 
-            adView.loadAd(adRequest)
-            adView.adListener = this
+            adView?.loadAd(adRequest)
+            adView?.adListener = this
         } catch (e: Exception) {
             Timber.e(e, "Exception in loadBanner(): ${e.localizedMessage}")
         }
 
+    }
+
+    fun destroy () {
+        if (adView!=null) adView?.destroy()
     }
 
     fun removeBanner(adContainerView: FrameLayout) {

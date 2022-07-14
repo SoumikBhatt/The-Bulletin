@@ -16,13 +16,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.nybsys.sentok.core.customViews.FullScreenViewType
 import com.soumik.newsapp.NewsApp
 import com.soumik.newsapp.R
+import com.soumik.newsapp.core.ads.NativeAdMob
 import com.soumik.newsapp.core.utils.gone
 import com.soumik.newsapp.core.utils.handleVisibility
 import com.soumik.newsapp.core.utils.visible
 import com.soumik.newsapp.databinding.FragmentNewsFeedBinding
 import com.soumik.newsapp.features.home.presentation.HomeFragmentDirections
 import com.soumik.newsapp.features.home.presentation.newsfeed.viewmodel.NewsFeedViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -47,9 +47,8 @@ class NewsFeedFragment : Fragment() {
     @Inject
     lateinit var mViewModel: NewsFeedViewModel
     private lateinit var mBinding: FragmentNewsFeedBinding
-    private val mNewsListAdapter: NewsListAdapter by lazy {
-        NewsListAdapter()
-    }
+
+    @Inject lateinit var mNewsListAdapter : NewsListPagingAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -192,5 +191,14 @@ class NewsFeedFragment : Fragment() {
 
     private fun fetchNews() {
         mViewModel.fetchTopHeadlines("us", category, 1)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        try {
+            NativeAdMob.destroy()
+        } catch (e: Exception) {
+        }
     }
 }
