@@ -106,7 +106,7 @@ dependencies {
     implementation "com.airbnb.android:lottie:$lottie_version"
 
     // admob
-    implementation 'com.google.android.gms:play-services-ads:21.0.0'
+    implementation 'com.google.android.gms:play-services-ads:21.1.0'
 
     // timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
