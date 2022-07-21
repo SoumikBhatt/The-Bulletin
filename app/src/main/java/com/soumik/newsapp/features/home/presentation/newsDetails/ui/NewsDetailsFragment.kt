@@ -141,37 +141,45 @@ class NewsDetailsFragment : Fragment() {
                 mViewModel.apply {
                     Log.d(TAG, "setUpViews: isFav: ${isFavourite.value}")
                     if (isFavourite.value == true) {
-                        mViewModel.deleteFavouriteList(
-                            Favourite(
-                                author = article?.author,
-                                content = article?.content,
-                                description = article?.description,
-                                publishedAt = article?.publishedAt,
-                                title = article?.title,
-                                url = article?.url,
-                                urlToImage = article?.urlToImage,
-                                category = args.category,
-                                isFavourite = 1
-                            )
-                        )
+                        deleteFavouriteItem(article)
                     } else {
-                        mViewModel.insertFavouriteItem(
-                            Favourite(
-                                author = article?.author,
-                                content = article?.content,
-                                description = article?.description,
-                                publishedAt = article?.publishedAt,
-                                title = article?.title,
-                                url = article?.url,
-                                urlToImage = article?.urlToImage,
-                                category = args.category,
-                                isFavourite = 1
-                            )
-                        )
+                        insertFavouriteItem(article)
                     }
                 }
             }
         }
+    }
+
+    private fun deleteFavouriteItem(article: Article?) {
+        mViewModel.deleteFavouriteList(
+            Favourite(
+                author = article?.author,
+                content = article?.content,
+                description = article?.description,
+                publishedAt = article?.publishedAt,
+                title = article?.title,
+                url = article?.url,
+                urlToImage = article?.urlToImage,
+                category = args.category,
+                isFavourite = 1
+            )
+        )
+    }
+
+    private fun insertFavouriteItem(article: Article?) {
+        mViewModel.insertFavouriteItem(
+            Favourite(
+                author = article?.author,
+                content = article?.content,
+                description = article?.description,
+                publishedAt = article?.publishedAt,
+                title = article?.title,
+                url = article?.url,
+                urlToImage = article?.urlToImage,
+                category = args.category,
+                isFavourite = 1
+            )
+        )
     }
 
     private fun showFullNews(article: Article?) {
