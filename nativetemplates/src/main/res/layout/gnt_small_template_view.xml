@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:layout_centerInParent="true"
+        android:background="@drawable/gnt_outline_shape"
         >
       <androidx.constraintlayout.widget.ConstraintLayout
           android:layout_width="@dimen/gnt_no_size"

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.soumik.newsapp.BuildConfig
 import com.soumik.newsapp.NewsApp
 import com.soumik.newsapp.R
+import com.soumik.newsapp.core.ads.BannerAd
 import com.soumik.newsapp.core.utils.Constants
 import com.soumik.newsapp.core.utils.feedback
 import com.soumik.newsapp.core.utils.rateApp
@@ -39,6 +40,8 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         (requireActivity().application as NewsApp).appComponent.inject(this)
+
+        BannerAd.loadBanner(requireActivity(),mBinding.bannerAdContainer)
 
         init()
         setViews()
@@ -118,6 +121,12 @@ class SettingsFragment : Fragment() {
             email = Constants.APP_EMAIL,
             subject = "Feedback for ${getString(R.string.app_name)} Version: ${BuildConfig.VERSION_NAME}"
         )
+    }
+
+    override fun onDestroyView() {
+        BannerAd.removeBanner(mBinding.bannerAdContainer)
+        BannerAd.destroy()
+        super.onDestroyView()
     }
 
 }
