@@ -17,6 +17,7 @@ import com.soumik.newsapp.R
 import com.soumik.newsapp.core.SharedViewModel
 import com.soumik.newsapp.core.ads.BannerAd
 import com.soumik.newsapp.core.ads.InterstitialAdMob
+import com.soumik.newsapp.core.ads.RewardedAdMob
 import com.soumik.newsapp.core.utils.DateUtils
 import com.soumik.newsapp.core.utils.Event
 import com.soumik.newsapp.core.utils.loadImage
@@ -175,20 +176,45 @@ class NewsDetailsFragment : Fragment() {
 
     private fun showFullNews(article: Article?) {
         isFullNewsClicked = true
+        showRewardedAd(article)
+    }
 
+    private fun showInterstitialAd(article: Article?) {
         InterstitialAdMob.loadInterstitialAd(
             activity = requireActivity(),
             interstitialAdController = object : InterstitialAdMob.InterstitialAdController {
                 override fun onAddDismissed() {
-                    //        requireContext().launchUrl(article?.url)
-                    findNavController().navigate(
-                        NewsDetailsFragmentDirections.actionDestNewsDetailsToDestWebView(
-                            article?.title,
-                            article?.url
-                        )
-                    )
+                    navigateToDetailsWeb(article)
+                }
+
+                override fun onAdUnready() {
+                    navigateToDetailsWeb(article)
                 }
             })
+    }
+
+    private fun showRewardedAd(article: Article?) {
+        RewardedAdMob.loadRewardedAd(
+            activity = requireActivity(),
+            rewardedAdController = object : RewardedAdMob.RewardedAdController {
+                override fun onAdDismissed() {
+                    navigateToDetailsWeb(article)
+                }
+
+                override fun onAdUnready() {
+                    showInterstitialAd(article)
+                }
+            })
+    }
+
+    private fun navigateToDetailsWeb(article: Article?) {
+        findNavController().navigate(
+            //        requireContext().launchUrl(article?.url)
+            NewsDetailsFragmentDirections.actionDestNewsDetailsToDestWebView(
+                article?.title,
+                article?.url
+            )
+        )
     }
 
 }

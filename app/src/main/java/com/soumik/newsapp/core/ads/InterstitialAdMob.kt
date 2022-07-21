@@ -36,7 +36,7 @@ object InterstitialAdMob : FullScreenContentCallback() {
             mInterstitialAd?.show(activity)
         } else {
             Timber.d("loadInterstitialAd(): ad wasn't ready")
-            mInterstitialAdController?.onAddDismissed()
+            mInterstitialAdController?.onAdUnready()
         }
     }
 
@@ -71,5 +71,6 @@ object InterstitialAdMob : FullScreenContentCallback() {
 
     interface InterstitialAdController {
         fun onAddDismissed()
+        fun onAdUnready()
     }
 }
