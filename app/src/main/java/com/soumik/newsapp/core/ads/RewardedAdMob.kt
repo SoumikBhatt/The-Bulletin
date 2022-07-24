@@ -35,6 +35,10 @@ object RewardedAdMob : FullScreenContentCallback() {
 
         mRewardedAd?.fullScreenContentCallback = this
 
+        showRewardedAd(activity)
+    }
+
+    private fun showRewardedAd(activity: Activity) {
         if (mRewardedAd != null) {
             mRewardedAd?.show(activity) {
                 val rewardAmount = it.amount

@@ -143,7 +143,7 @@ class NewsDetailsFragment : Fragment() {
                     if (isFavourite.value == true) {
                         deleteFavouriteItem(article)
                     } else {
-                        insertFavouriteItem(article)
+                        showRewardedAd(article)
                     }
                 }
             }
@@ -184,7 +184,7 @@ class NewsDetailsFragment : Fragment() {
 
     private fun showFullNews(article: Article?) {
         isFullNewsClicked = true
-        showRewardedAd(article)
+        showInterstitialAd(article)
     }
 
     private fun showInterstitialAd(article: Article?) {
@@ -206,11 +206,11 @@ class NewsDetailsFragment : Fragment() {
             activity = requireActivity(),
             rewardedAdController = object : RewardedAdMob.RewardedAdController {
                 override fun onAdDismissed() {
-                    navigateToDetailsWeb(article)
+                    insertFavouriteItem(article)
                 }
 
                 override fun onAdUnready() {
-                    showInterstitialAd(article)
+                    insertFavouriteItem(article)
                 }
             })
     }
