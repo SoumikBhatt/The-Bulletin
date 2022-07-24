@@ -7,6 +7,9 @@ import com.soumik.newsapp.core.utils.IConnectivity
 import com.soumik.newsapp.features.home.data.source.remote.HomeWebService
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -21,6 +24,7 @@ copyright (c) 2022 Soumik Bhattacharjee. All rights reserved
  **/
 
 @Module
+@InstallIn(SingletonComponent::class)
 class NetworkModules {
 
     @Singleton
@@ -40,7 +44,7 @@ class NetworkModules {
 
     @Singleton
     @Provides
-    fun provideCache(context: Context): Cache {
+    fun provideCache(@ApplicationContext context: Context): Cache {
         val cacheSize = (5 * 1024 * 1024).toLong()
         return Cache(context.cacheDir, cacheSize)
     }

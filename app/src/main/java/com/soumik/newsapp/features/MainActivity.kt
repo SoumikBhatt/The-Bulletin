@@ -10,7 +10,9 @@ import com.google.android.gms.ads.MobileAds
 import com.soumik.newsapp.core.SharedViewModel
 import com.soumik.newsapp.core.utils.EventObserver
 import com.soumik.newsapp.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mBinding : ActivityMainBinding

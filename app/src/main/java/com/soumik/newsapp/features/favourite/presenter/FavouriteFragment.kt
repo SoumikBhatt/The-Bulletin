@@ -12,8 +12,10 @@ import com.soumik.newsapp.NewsApp
 import com.soumik.newsapp.core.utils.*
 import com.soumik.newsapp.databinding.FavouriteFragmentBinding
 import com.soumik.newsapp.features.home.domain.model.Article
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class FavouriteFragment : Fragment() {
 
     @Inject
@@ -33,7 +35,6 @@ class FavouriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity().application as NewsApp).appComponent.inject(this)
 
         init()
         setViews()

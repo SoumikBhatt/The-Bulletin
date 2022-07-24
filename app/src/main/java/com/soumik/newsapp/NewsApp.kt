@@ -2,8 +2,7 @@ package com.soumik.newsapp
 
 import android.app.Application
 import android.content.Context
-import com.soumik.newsapp.core.di.component.AppComponent
-import com.soumik.newsapp.core.di.component.DaggerAppComponent
+import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
 /**
@@ -12,15 +11,11 @@ piyal.developer@gmail.com
 copyright (c) 2022 Soumik Bhattacharjee. All rights reserved
  **/
 
+@HiltAndroidApp
 class NewsApp : Application() {
-    val appComponent: AppComponent by lazy {
-        DaggerAppComponent.factory().create(applicationContext)
-    }
-
     companion object {
         lateinit var mContext: Context
     }
-
 
     override fun onCreate() {
         super.onCreate()

@@ -10,6 +10,8 @@ import com.soumik.newsapp.features.home.data.source.local.ArticleDao
 import com.soumik.newsapp.features.home.data.source.remote.HomeWebService
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 /**
@@ -19,6 +21,7 @@ Copyright (c) 2022 NybSys. All rights reserved
  **/
 
 @Module
+@InstallIn(SingletonComponent::class)
 class RepositoryModule {
 
     @Provides

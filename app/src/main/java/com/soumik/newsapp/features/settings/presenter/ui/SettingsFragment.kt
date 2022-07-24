@@ -16,16 +16,19 @@ import com.soumik.newsapp.core.utils.rateApp
 import com.soumik.newsapp.core.utils.share
 import com.soumik.newsapp.databinding.SettingsFragmentBinding
 import com.soumik.newsapp.features.settings.presenter.viewmodel.SettingsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class SettingsFragment : Fragment() {
 
     companion object {
         private const val TAG = "SettingsFragment"
     }
 
-    private lateinit var mBinding : SettingsFragmentBinding
-    @Inject lateinit var mViewModel: SettingsViewModel
+    private lateinit var mBinding: SettingsFragmentBinding
+    @Inject
+    lateinit var mViewModel: SettingsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,9 +42,7 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (requireActivity().application as NewsApp).appComponent.inject(this)
-
-        BannerAd.loadBanner(requireActivity(),mBinding.bannerAdContainer)
+        BannerAd.loadBanner(requireActivity(), mBinding.bannerAdContainer)
 
         init()
         setViews()
@@ -63,18 +64,28 @@ class SettingsFragment : Fragment() {
 
     private fun setUpObservers() {
         mViewModel.apply {
-            darkThemeEnabled.observe(viewLifecycleOwner){
+            darkThemeEnabled.observe(viewLifecycleOwner) {
                 if (it) {
                     mBinding.apply {
                         tvMenuTheme.text = getString(R.string.light_mode)
                         tvMenuThemeDesc.text = getString(R.string.switch_app_theme_to_light_mode)
-                        tvMenuTheme.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_light_mode,0)
+                        tvMenuTheme.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                            0,
+                            0,
+                            R.drawable.ic_light_mode,
+                            0
+                        )
                     }
                 } else {
                     mBinding.apply {
                         tvMenuTheme.text = getString(R.string.dark_mode)
                         tvMenuThemeDesc.text = getString(R.string.switch_app_theme_to_dark_mode)
-                        tvMenuTheme.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_dark_mode,0)
+                        tvMenuTheme.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                            0,
+                            0,
+                            R.drawable.ic_dark_mode,
+                            0
+                        )
                     }
                 }
             }

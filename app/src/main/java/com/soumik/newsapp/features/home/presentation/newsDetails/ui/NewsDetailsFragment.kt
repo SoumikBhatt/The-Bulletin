@@ -25,8 +25,10 @@ import com.soumik.newsapp.databinding.NewsDetailsFragmentBinding
 import com.soumik.newsapp.features.favourite.domain.entity.Favourite
 import com.soumik.newsapp.features.home.domain.model.Article
 import com.soumik.newsapp.features.home.presentation.newsDetails.viewmodel.NewsDetailsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class NewsDetailsFragment : Fragment() {
 
     companion object {
@@ -52,7 +54,6 @@ class NewsDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity().application as NewsApp).appComponent.inject(this)
         BannerAd.loadBanner(requireActivity(), mBinding!!.bannerAdContainer)
 
         init()

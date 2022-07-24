@@ -7,6 +7,9 @@ import com.soumik.newsapp.features.favourite.data.source.local.FavouriteDao
 import com.soumik.newsapp.features.home.data.source.local.ArticleDao
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 /**
@@ -16,11 +19,12 @@ Copyright (c) 2022 NybSys. All rights reserved
  **/
 
 @Module
+@InstallIn(SingletonComponent::class)
 class StorageModule {
 
     @Singleton
     @Provides
-    fun provideAppDB(context: Context): AppDatabase {
+    fun provideAppDB(@ApplicationContext context: Context): AppDatabase {
         return Room.databaseBuilder(context, AppDatabase::class.java, "${context.packageName}_db")
             .build()
     }
