@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nybsys.sentok.core.customViews.FullScreenViewType
-import com.soumik.newsapp.NewsApp
 import com.soumik.newsapp.core.utils.*
 import com.soumik.newsapp.databinding.FavouriteFragmentBinding
 import com.soumik.newsapp.features.home.domain.model.Article

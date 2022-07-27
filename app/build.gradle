@@ -115,6 +115,9 @@ dependencies {
     // preference data store
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
+    // splash screen
+    implementation 'androidx.core:core-splashscreen:1.0.0-rc01'
+
     // native ad template
     implementation project(':nativetemplates')
 

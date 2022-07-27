@@ -17,6 +17,14 @@
         <item name="fontFamily">@font/merriweather_regular</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="Theme.CustomSplashScreenTheme" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_bulletin_app</item>
+        <!--        <item name="windowSplashScreenAnimationDuration">1000</item>-->
+        <!--        <item name="android:windowSplashScreenBrandingImage" tools:targetApi="s">@drawable/bg_california</item>-->
+        <item name="postSplashScreenTheme">@style/Theme.NewsApp</item>
+    </style>
     
     <style name="TabItemTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
