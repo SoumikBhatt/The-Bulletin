@@ -12,12 +12,15 @@
         android:padding="@dimen/padding_16"
         android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginEnd="@dimen/margin_8"
+            app:shapeAppearance="?attr/actionButtonStyle"
+            app:shapeAppearanceOverlay="@style/imageViewRounded"
             app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_bulletin_app"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 

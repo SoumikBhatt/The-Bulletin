@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.soumik.newsapp.NewsApp
 import com.soumik.newsapp.R
 import com.soumik.newsapp.core.SharedViewModel
 import com.soumik.newsapp.core.ads.BannerAd
@@ -21,6 +20,7 @@ import com.soumik.newsapp.core.ads.RewardedAdMob
 import com.soumik.newsapp.core.utils.DateUtils
 import com.soumik.newsapp.core.utils.Event
 import com.soumik.newsapp.core.utils.loadImage
+import com.soumik.newsapp.core.utils.share
 import com.soumik.newsapp.databinding.NewsDetailsFragmentBinding
 import com.soumik.newsapp.features.favourite.domain.entity.Favourite
 import com.soumik.newsapp.features.home.domain.model.Article
@@ -59,6 +59,7 @@ class NewsDetailsFragment : Fragment() {
         init()
         setUpObservers()
         setUpViews()
+        setViewListeners()
     }
 
     private fun setUpObservers() {
@@ -134,7 +135,14 @@ class NewsDetailsFragment : Fragment() {
                 HtmlCompat.fromHtml(article?.content ?: "", HtmlCompat.FROM_HTML_MODE_LEGACY)
             tvNewsDescription.text =
                 HtmlCompat.fromHtml(article?.description ?: "", HtmlCompat.FROM_HTML_MODE_LEGACY)
+        }
+    }
 
+    private fun setViewListeners() {
+
+        val article = args.article
+
+        mBinding?.apply {
             btnFullNews.setOnClickListener { showFullNews(article) }
             ivBackArrow.setOnClickListener { findNavController().navigateUp() }
 
@@ -147,6 +155,10 @@ class NewsDetailsFragment : Fragment() {
                         showRewardedAd(article)
                     }
                 }
+            }
+
+            ivShareNews.setOnClickListener {
+                requireContext().share(subject = article?.title, body = "${article?.content}\n\n${article?.url}")
             }
         }
     }

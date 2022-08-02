@@ -11,13 +11,14 @@
         android:id="@+id/iv_back_arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_16"
         android:elevation="10dp"
         android:tint="@color/orange"
-        app:srcCompat="@drawable/ic_baseline_arrow_back_ios_new_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="@dimen/margin_16"
-        android:layout_marginTop="@dimen/margin_16"/>
+        app:srcCompat="@drawable/ic_baseline_arrow_back_ios_new_24"
+        tools:ignore="ImageContrastCheck" />
 
     <ScrollView
         android:layout_width="0dp"
@@ -31,6 +32,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+
+            <LinearLayout
+                android:id="@+id/llNewsOptions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_news_title">
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/ivShareNews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:layout_marginEnd="@dimen/dimen_8_dp"
+                    android:padding="@dimen/dimen_8_dp"
+                    android:src="@drawable/ic_outline_share_24" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/iv_favourite_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:padding="@dimen/padding_8"
+                    android:src="@drawable/ic_bookmark_border_24"
+                    tools:ignore="ImageContrastCheck" />
+            </LinearLayout>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_news_title"
@@ -47,54 +77,46 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_news_author"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_news_title"
-                tools:text="Laurence Norman, Georgi Kantchev"
+                android:layout_marginTop="@dimen/margin_8"
+                android:layout_marginEnd="8dp"
                 android:gravity="start"
+                android:letterSpacing="0.05"
                 android:textColor="@color/orange"
                 android:textSize="@dimen/text_12"
-                android:letterSpacing="0.05"
-                android:layout_marginTop="@dimen/margin_8"
-                android:layout_marginEnd="@dimen/margin_8"/>
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/iv_favourite_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/padding_8"
-                android:layout_marginTop="@dimen/margin_8"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/llNewsOptions"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_news_title"
-                android:src="@drawable/ic_bookmark_border_24"/>
+                tools:text="Laurence Norman, Georgi Kantchev" />
 
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_news_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_news_author"
-                tools:text="27-03-2022"
-                android:textSize="@dimen/text_12"
+                android:layout_marginTop="3dp"
                 android:gravity="end"
                 android:letterSpacing="0.05"
-                android:layout_marginTop="3dp"
-                android:layout_marginEnd="@dimen/margin_8"/>
+                android:textColor="#616161"
+                android:textSize="@dimen/text_12"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_news_author"
+                tools:text="27-03-2022" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_news_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:letterSpacing="0.05"
+                android:layout_marginTop="@dimen/margin_16"
                 android:justificationMode="inter_word"
-                tools:text="As Moscow’s assault continues with no peace deal in sight, European capitals consider a move that was once off the table"
+                android:letterSpacing="0.05"
+                android:textColor="#616161"
                 android:textSize="@dimen/text_14"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_news_time"
-                android:layout_marginTop="@dimen/margin_16"/>
+                tools:text="As Moscow’s assault continues with no peace deal in sight, European capitals consider a move that was once off the table" />
 
 
             <androidx.appcompat.widget.AppCompatImageView

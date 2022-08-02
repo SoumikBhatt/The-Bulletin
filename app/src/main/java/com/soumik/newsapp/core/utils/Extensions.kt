@@ -31,7 +31,6 @@ fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false):
     LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 
 
-
 fun Context.launchUrl(url: String?) {
     try {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
@@ -52,18 +51,25 @@ fun ShimmerFrameLayout.handleShimmer(value: Boolean) {
     else this.stopShimmer()
 }
 
-fun Context.share(subject:String,body:String,chooserTitle:String){
+fun Context.share(subject: String?, body: String?, chooserTitle: String = "Send via") {
     try {
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.type = "text/plain"
-        shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "$body\n\n\nDownload the App now: https://play.google.com/store/apps/details?id=$packageName")
+        if (subject != null) {
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
+        }
+        if (body != null) {
+            shareIntent.putExtra(
+                Intent.EXTRA_TEXT,
+                "$body\n\n\nDownload the App now: https://play.google.com/store/apps/details?id=$packageName"
+            )
+        }
         startActivity(Intent.createChooser(shareIntent, chooserTitle))
     } catch (e: Exception) {
     }
 }
 
-fun Context.feedback(email:String,subject: String?="",body:String?=""){
+fun Context.feedback(email: String, subject: String? = "", body: String? = "") {
     val installed = appInstalledOrNot("com.google.android.gm")
     if (installed) {
         try {
@@ -92,7 +98,7 @@ fun Context.feedback(email:String,subject: String?="",body:String?=""){
             val intent = Intent(Intent.ACTION_VIEW)
             val data = Uri.parse("mailto:$email?subject=$subject")
             intent.data = data
-            intent.putExtra(Intent.EXTRA_TEXT,body)
+            intent.putExtra(Intent.EXTRA_TEXT, body)
             startActivity(intent)
 
         } catch (e: Exception) {
@@ -113,7 +119,7 @@ private fun Context.appInstalledOrNot(uri: String): Boolean {
     return appInstalled
 }
 
-fun Context.rateApp(){
+fun Context.rateApp() {
     val appId = packageName
     val rateIntent = Intent(
         Intent.ACTION_VIEW,
@@ -150,7 +156,8 @@ fun Context.rateApp(){
 
             }
         }
-    } catch (e: Exception) {}
+    } catch (e: Exception) {
+    }
 
     // if GP not present on device, open web browser
     if (!marketFound) {
@@ -162,13 +169,18 @@ fun Context.rateApp(){
     }
 }
 
-fun Context.likeOnFB(pageID:String,pageUserName:String){
+fun Context.likeOnFB(pageID: String, pageUserName: String) {
     return try {
         packageManager.getPackageInfo("com.facebook.katana", 0)
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/$pageID"))
-        return  startActivity(intent)
+        return startActivity(intent)
 
     } catch (e: Exception) {
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/$pageUserName")))
+        startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://www.facebook.com/$pageUserName")
+            )
+        )
     }
 }
