@@ -7,17 +7,62 @@
 
     <fragment
         android:id="@+id/dest_home"
-        android:name="com.soumik.newsapp.features.home.presenter.ui.HomeFragment"
+        android:name="com.soumik.newsapp.features.home.presentation.HomeFragment"
         android:label="@string/nav_home"
-        tools:layout="@layout/home_fragment" />
+        tools:layout="@layout/home_fragment" >
+        <action
+            android:id="@+id/action_dest_home_to_dest_news_details"
+            app:destination="@id/dest_news_details"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
     <fragment
         android:id="@+id/dest_favourite"
-        android:name="com.soumik.newsapp.features.favourite.presenter.ui.FavouriteFragment"
+        android:name="com.soumik.newsapp.features.favourite.presenter.FavouriteFragment"
         android:label="@string/favourites"
-        tools:layout="@layout/favourite_fragment" />
+        tools:layout="@layout/favourite_fragment" >
+        <action
+            android:id="@+id/action_dest_favourite_to_dest_news_details"
+            app:destination="@id/dest_news_details"
+            app:enterAnim="@anim/nav_default_pop_enter_anim"
+            app:exitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
     <fragment
         android:id="@+id/dest_settings"
         android:name="com.soumik.newsapp.features.settings.presenter.ui.SettingsFragment"
         android:label="@string/settings"
         tools:layout="@layout/settings_fragment" />
+    <fragment
+        android:id="@+id/dest_news_details"
+        android:name="com.soumik.newsapp.features.home.presentation.newsDetails.ui.NewsDetailsFragment"
+        android:label="news_details_fragment"
+        tools:layout="@layout/news_details_fragment" >
+        <argument
+            android:name="article"
+            app:argType="com.soumik.newsapp.features.home.domain.model.Article"
+            app:nullable="true" />
+        <argument
+            android:name="category"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_dest_news_details_to_destWebView"
+            app:destination="@id/destWebView"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/destWebView"
+        android:name="com.soumik.newsapp.features.webView.ui.WebViewFragment"
+        android:label="fragment_web_view"
+        tools:layout="@layout/fragment_web_view" >
+        <argument
+            android:name="title"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="url"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 </navigation>

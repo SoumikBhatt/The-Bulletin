@@ -2,15 +2,27 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.soumik.newsapp">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+<!--    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>-->
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:name=".NewsApp"
+        android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.NewsApp">
+        android:theme="@style/Theme.CustomSplashScreenTheme">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-4293619114743335~1720713887"/>
+
         <activity
-            android:name=".base.MainActivity"
+            android:name="com.soumik.newsapp.features.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

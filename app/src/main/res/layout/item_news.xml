@@ -9,48 +9,71 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:paddingBottom="@dimen/padding_8"
+        android:padding="@dimen/padding_16"
         android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_image"
-            android:layout_width="0dp"
+            android:layout_width="100dp"
             android:layout_height="100dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginEnd="@dimen/margin_8"
+            app:shapeAppearance="?attr/actionButtonStyle"
+            app:shapeAppearanceOverlay="@style/imageViewRounded"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:srcCompat="@drawable/ic_bulletin_app"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_image"
+            app:layout_constraintEnd_toStartOf="@id/iv_image"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="EU Support Grows for Russia Oil Ban Over Ukraine War - The Wall Street Journal"
-            android:paddingHorizontal="@dimen/padding_8"
+            android:textAppearance="@style/NewsTitleTextAppearance"
+            android:layout_marginEnd="@dimen/margin_8"
             android:layout_marginTop="@dimen/margin_8"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_author"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/iv_image"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
             tools:text="Laurence Norman, Georgi Kantchev"
-            android:paddingHorizontal="@dimen/padding_8"
             android:textSize="@dimen/text_12"
-            android:layout_marginTop="3dp"/>
+            android:letterSpacing="0.05"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="@dimen/margin_8"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_description"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
+            android:maxLines="3"
+            app:layout_constraintEnd_toStartOf="@id/iv_image"
             app:layout_constraintTop_toBottomOf="@id/tv_author"
+            android:letterSpacing="0.05"
+            android:justificationMode="inter_word"
             tools:text="As Moscow’s assault continues with no peace deal in sight, European capitals consider a move that was once off the table"
-            android:paddingHorizontal="@dimen/padding_8"
             android:textSize="@dimen/text_14"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginEnd="@dimen/margin_8"
+            android:layout_marginTop="@dimen/margin_8"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_favourite_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_image"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/ic_favorite_border_24"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
